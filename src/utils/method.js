@@ -15,9 +15,21 @@ export var downloadFile = (data, fileName = '文件') => {
 }
 
 export var reImgUrl = url => {
-  if (url.indexOf('http') == -1) {
-    return () => Promise.resolve(require(`${url}`).default)
+  if (Array.isArray(url)) {
+    const list = []
+    url.forEach(item => {
+      if (item.indexOf('http') == -1) {
+        list.push(require(`${url}`))
+      } else {
+        list.push(url)
+      }
+    })
+    return list
   } else {
-    return url
+    if (url.indexOf('http') == -1) {
+      return () => Promise.resolve(require(`${url}`).default)
+    } else {
+      return url
+    }
   }
 }

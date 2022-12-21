@@ -33,7 +33,7 @@
           <el-image
             v-if="scope.row[item.key]"
             style="height: 80px; max-width: 100px"
-            :src="scope.row[item.key]"
+            :src="reImgUrl(scope.row[item.key])"
             :preview-src-list="[scope.row[item.key]]"
           >
           </el-image>

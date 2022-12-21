@@ -24,8 +24,8 @@
           <el-image
             v-if="ruleForm[item.prop]"
             style="width: 200px; height: 100px"
-            :src="ruleForm[item.prop]"
-            :preview-src-list="[ruleForm[item.prop]]"
+            :src="reImgUrl(ruleForm[item.prop])"
+            :preview-src-list="[reImgUrl(ruleForm[item.prop])]"
           >
           </el-image>
         </template>
@@ -33,8 +33,8 @@
           <el-image
             v-if="ruleForm[item.prop]?.[0]"
             style="width: 200px; height: 100px"
-            :src="ruleForm[item.prop]?.[0]"
-            :preview-src-list="ruleForm[item.prop]"
+            :src="reImgUrl(ruleForm[item.prop]?.[0])"
+            :preview-src-list="reImgUrl(ruleForm[item.prop])"
           >
           </el-image>
         </template>

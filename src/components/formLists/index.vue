@@ -30,7 +30,7 @@
           :show-file-list="false"
           :before-upload="file => beforeUpload(file, item.prop)"
         >
-          <img v-if="ruleForm[item.prop]" :src="ruleForm[item.prop]" class="avatar" />
+          <img v-if="ruleForm[item.prop]" :src="reImgUrl(ruleForm[item.prop])" class="avatar" />
           <i v-else class="el-icon-plus uploader-icon"></i>
         </el-upload>
       </template>
@@ -41,14 +41,19 @@
           :show-file-list="false"
           :before-upload="file => beforeUpload(file, item.prop)"
         >
-          <img v-if="ruleForm[item.prop]" :src="ruleForm[item.prop]" class="imger" />
+          <img v-if="ruleForm[item.prop]" :src="reImgUrl(ruleForm[item.prop])" class="imger" />
           <i v-else class="el-icon-plus uploader-icon img-icon"></i>
         </el-upload>
       </template>
       <template v-else-if="item.type == 'upImgList'">
         <div class="imgListBox">
           <div class="item-img" v-for="(url, ind) in ruleForm[item.prop]" :key="url">
-            <el-image :src="url" :preview-src-list="ruleForm[item.prop]" class="imger"> </el-image>
+            <el-image
+              :src="reImgUrl(url)"
+              :preview-src-list="reImgUrl(ruleForm[item.prop])"
+              class="imger"
+            >
+            </el-image>
             <el-link class="del" @click="delImg(item.prop, ind)">删除</el-link>
           </div>
           <el-upload
