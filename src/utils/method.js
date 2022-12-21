@@ -19,9 +19,9 @@ export var reImgUrl = url => {
     const list = []
     url.forEach(item => {
       if (item.indexOf('http') == -1) {
-        list.push(require(`${url}`))
+        list.push(require(`${item}`))
       } else {
-        list.push(url)
+        list.push(item)
       }
     })
     return list
