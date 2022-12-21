@@ -13,3 +13,11 @@ export var downloadFile = (data, fileName = '文件') => {
     document.body.removeChild(a)
   }
 }
+
+export var reImgUrl = url => {
+  if (url.indexOf('http') == -1) {
+    return () => Promise.resolve(require(`${url}`).default)
+  } else {
+    return url
+  }
+}
