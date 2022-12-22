@@ -68,12 +68,15 @@ export default {
   align-items: center;
   height: 100vh;
   width: 100vw;
+  background: url('@/assets/img/login-bj.png');
+  background-size: 100% 100%;
   .form-box {
     margin-top: 10%;
     width: 300px;
     border-radius: 10px;
     padding: 20px 30px;
     box-shadow: 0px 0px 10px 6px rgba($color: #000, $alpha: 0.3);
+    background-color: #fff;
     .btn {
       width: 100%;
     }

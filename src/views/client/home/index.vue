@@ -76,10 +76,9 @@ export default {
   width: 100%;
   height: 100%;
   overflow: auto;
-  padding: 50px 100px;
+  padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  background-color: #f4f4f4;
   .commodity-box {
     width: 250px;
     height: 250px;

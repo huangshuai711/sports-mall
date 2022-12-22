@@ -111,7 +111,7 @@ export default {
 <style lang="scss" scoped>
 .headNav {
   width: 100%;
-  height: 82px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;

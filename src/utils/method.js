@@ -27,7 +27,7 @@ export var reImgUrl = url => {
     return list
   } else {
     if (url.indexOf('http') == -1) {
-      return () => Promise.resolve(require(`${url}`).default)
+      return `@/assets/home.png`
     } else {
       return url
     }

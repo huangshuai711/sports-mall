@@ -141,6 +141,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: url('@/assets/img/login-bj.png');
+  background-size: 100% 100%;
   height: 100vh;
   width: 100vw;
   .form-box {
@@ -149,6 +151,7 @@ export default {
     border-radius: 10px;
     padding: 20px 30px;
     box-shadow: 0px 0px 10px 6px rgba($color: #000, $alpha: 0.3);
+    background-color: #fff;
     .youke {
       text-align: right;
       margin-bottom: 30px;

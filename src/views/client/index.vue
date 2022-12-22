@@ -36,13 +36,14 @@ export default {
 .home {
   height: 100vh;
   width: 100vw;
+  background: url('@/assets/img/client-bj.png');
+  background-size: 100% 100%;
   display: flex;
   flex-direction: column;
   .top-nav {
     width: 100%;
-    background: #fff;
     box-shadow: 0 3px 12px rgb(98 107 181 / 25%);
-    height: 82px;
+    height: 72px;
   }
   .menu-content {
     flex: 1;
@@ -50,7 +51,7 @@ export default {
     display: flex;
     .menu {
       height: 100%;
-      width: 350px;
+      width: 250px;
       .el-menu-vertical-demo {
         height: 100%;
       }
