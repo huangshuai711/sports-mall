@@ -23,7 +23,7 @@ export function exportCommodity(parameter) {
 export function getDetails(id) {
   return request({
     url: `/api/adminProducts/detail/${id}`,
-    method: 'put'
+    method: 'GET'
   })
 }
 

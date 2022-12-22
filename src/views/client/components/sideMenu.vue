@@ -67,7 +67,8 @@ export default {
   padding: 20px 0 20px 30px;
   box-sizing: border-box;
   .title {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    font-size: 20px;
   }
 }
 ::v-deep .el-tree {
@@ -78,5 +79,9 @@ export default {
   margin: 0;
   background-color: rgba($color: #000, $alpha: 0);
   border: none;
+}
+::v-deep .el-submenu__title {
+  padding-left: 50px !important;
+  font-size: 20px;
 }
 </style>

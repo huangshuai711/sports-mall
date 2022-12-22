@@ -16,16 +16,19 @@
         </div>
       </div>
     </div>
+    <div class="bottom-home" v-if="$route.path == '/client/home'">
+      <Home></Home>
+    </div>
   </div>
 </template>
 
 <script>
 import HeadNav from './components/headNav'
 import SideMenu from './components/sideMenu'
-// import Tab from './components/tab'
+import Home from './components/home'
 export default {
   name: 'home',
-  components: { SideMenu, HeadNav },
+  components: { SideMenu, HeadNav, Home },
   data() {
     return {}
   },
@@ -51,7 +54,7 @@ export default {
     display: flex;
     .menu {
       height: 100%;
-      width: 250px;
+      width: 350px;
       .el-menu-vertical-demo {
         height: 100%;
       }
@@ -70,6 +73,11 @@ export default {
         overflow: hidden;
       }
     }
+  }
+  .bottom-home {
+    height: 35.4%;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 </style>

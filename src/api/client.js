@@ -66,3 +66,10 @@ export function removeViewRecord(id) {
     method: 'post'
   })
 }
+// 获取评论列表
+export function commentList(id) {
+  return request({
+    url: `/api/userHomes/comment/${id}`,
+    method: 'post'
+  })
+}

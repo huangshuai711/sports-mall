@@ -1,6 +1,6 @@
 <template>
   <div class="headNav">
-    <div class="pro-name">运动用品购物管理后台</div>
+    <div class="pro-name" @click="goHome">运动用品购物平台</div>
     <div class="search">
       <el-input v-model="searchValue" placeholder="请输入搜索内容"></el-input>
       <el-button type="primary" @click="search">搜索</el-button>
@@ -72,6 +72,9 @@ export default {
     async getUserInfo() {
       this.GetInfo()
     },
+    goHome() {
+      this.$router.push('/client/home')
+    },
     search() {
       this.$store.commit('SET_SEARCHTEXT', this.searchValue)
     },
@@ -119,6 +122,7 @@ export default {
     margin-left: 30px;
     font-size: 25px;
     font-weight: 400;
+    cursor: pointer;
   }
   .info {
     height: 100%;

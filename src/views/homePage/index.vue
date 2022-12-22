@@ -146,7 +146,7 @@ export default {
 ::v-deep .el-carousel__container:before {
   content: ' ';
   display: block;
-  padding-top: 45%;
+  padding-top: 40%;
 }
 ::v-deep .el-carousel {
   position: relative;

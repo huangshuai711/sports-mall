@@ -1,71 +1,32 @@
 <template>
   <div class="box">
-    <div class="commodity-box" v-for="item in commoditys" :key="item.id">
-      <div class="pic"><img :src="item.sysFile?.filePath" alt="" /></div>
-      <div class="info info1">
-        <div class="name ellip">{{ item.productName }}</div>
-        <span @click="collect(item)">
-          <Icon
-            class="icon"
-            :type="item.isComment == 1 ? 'collYes' : 'collNo'"
-            width="30px"
-            height="30px"
-          ></Icon>
-        </span>
-      </div>
-      <div class="info info2">
-        <div class="price">
-          {{ item.promotionPrice }} <span class="orPrice">{{ item.originalPrice }}</span>
+    <el-carousel trigger="click">
+      <el-carousel-item v-for="item in imgArr" :key="item.id">
+        <div class="img-box">
+          <img :src="item.filePath" alt="" />
         </div>
-        <div class="pps ellip">{{ item.brandingBusiness }}</div>
-      </div>
-    </div>
+      </el-carousel-item>
+    </el-carousel>
   </div>
 </template>
 <script>
-import { getCommoditys, switchCollectState } from '@/api/client'
+import { getPictures } from '@/api/pictureManage'
 export default {
   data() {
     return {
-      commoditys: []
+      imgArr: []
     }
   },
-  computed: {
-    productType() {
-      return this.$store.getters.getProductType
-    },
-    searchValue() {
-      return this.$store.getters.getSearchText
-    },
-    refresh() {
-      const { productType, searchValue, name } = this
-      return { productType, searchValue, name }
-    }
-  },
-  watch: {
-    refresh(val) {
-      this.getData()
-    }
-  },
+  computed: {},
+  watch: {},
   created() {
-    this.getData()
+    this.getCarousel()
   },
   methods: {
-    async getData() {
+    async getCarousel() {
       try {
-        const param = this.productType ? { productTypeId: this.productType } : { isRecommend: 1 }
-        param.productName = this.searchValue
-        this.commoditys = await getCommoditys(param).then(res => res.data)
-      } catch (error) {}
-    },
-    async collect(item) {
-      const params = {
-        id: item.id,
-        type: item.isComment == 1 ? 2 : 1
-      }
-      try {
-        await switchCollectState(params)
-        this.getData()
+        const res = await getPictures()
+        this.imgArr = res.data
       } catch (error) {}
     }
   }
@@ -73,55 +34,35 @@ export default {
 </script>
 <style lang="scss" scoped>
 .box {
-  width: 100%;
   height: 100%;
+  padding-left: 200px;
   overflow: auto;
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  .commodity-box {
-    width: 250px;
-    height: 250px;
-    margin: 30px;
-    background-color: #fff;
-    border-radius: 5px;
-    overflow: hidden;
-    .pic {
+}
+::v-deep .el-carousel__container {
+  height: auto;
+}
+::v-deep .el-carousel__container:before {
+  content: ' ';
+  display: block;
+  padding-top: 40%;
+}
+::v-deep .el-carousel {
+  position: relative;
+  .img-box {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    img {
+      height: 100%;
       width: 100%;
-      height: 170px;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-    .info {
-      padding: 5px 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .info1 {
-      .name {
-        width: 180px;
-      }
-      .icon {
-        cursor: pointer;
-      }
-    }
-    .info2 {
-      .orPrice {
-        color: #fd3f31;
-        text-decoration: line-through;
-      }
-      .pps {
-        width: 130px;
-        text-align: right;
-      }
+      object-fit: cover;
+      margin: auto;
     }
   }
-  .commodity-box:hover {
-    box-shadow: 0 3px 12px rgb(98 107 181 / 25%);
-  }
+}
+::v-deep .el-carousel__item:nth-child(n) {
+  background-color: #99a9bf;
 }
 </style>
