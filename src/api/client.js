@@ -81,3 +81,12 @@ export function addOrder(parameter) {
     data: parameter
   })
 }
+
+// 下单、加入购物车
+export function paysPay(parameter) {
+  return request({
+    url: `/api/pays/pay`,
+    method: 'post',
+    data: parameter
+  })
+}

@@ -22,7 +22,7 @@
 </template>
 <script>
 import Table from '@/components/table'
-import { addOrder } from '@/api/client'
+import { addOrder, paysPay } from '@/api/client'
 export default {
   components: { Table },
   model: {
@@ -64,14 +64,20 @@ export default {
       this.$refs.from.validate(valid => {
         if (valid) {
           const param = {
-            stateStr: this.title === '加入购物车' ? 5 : 6,
+            state: this.title === '加入购物车' ? 5 : 6,
             orderProduct: { ...this.formRole, productId: this.id }
           }
           addOrder(param).then(res => {
             if (res.code == 200) {
               this.$message.success(this.title + '成功')
-              this.$refs.from.resetFields()
-              this.close()
+              if (this.title == '下单') {
+                paysPay({ orderNum: res.data }).then(res => {
+                  this.$router.push('/client/orderCenter')
+                })
+              } else {
+                this.$refs.from.resetFields()
+                this.close()
+              }
             } else {
               this.$message.error(res.msg)
             }

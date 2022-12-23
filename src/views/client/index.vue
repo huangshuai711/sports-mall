@@ -3,21 +3,30 @@
     <div class="top-nav">
       <HeadNav></HeadNav>
     </div>
-    <div class="menu-content">
+    <div class="client-home" v-if="$route.path == '/client/home'">
+      <div class="menu-content">
+        <div class="menu">
+          <SideMenu></SideMenu>
+        </div>
+        <div class="content">
+          <div class="content-box">
+            <router-view></router-view>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-home" v-if="$route.path == '/client/home'">
+        <Home></Home>
+      </div>
+    </div>
+    <div class="menu-content" v-else>
       <div class="menu">
         <SideMenu></SideMenu>
       </div>
       <div class="content">
-        <div class="content-nav">
-          <!-- <Tab></Tab> -->
-        </div>
         <div class="content-box">
           <router-view></router-view>
         </div>
       </div>
-    </div>
-    <div class="bottom-home" v-if="$route.path == '/client/home'">
-      <Home></Home>
     </div>
   </div>
 </template>
@@ -38,7 +47,7 @@ export default {
 <style lang="scss" scoped>
 .home {
   height: 100vh;
-  width: 100vw;
+  overflow: auto;
   background: url('@/assets/img/client-bj.png');
   background-size: 100% 100%;
   display: flex;
@@ -74,10 +83,16 @@ export default {
       }
     }
   }
-  .bottom-home {
-    height: 35.4%;
-    width: 100%;
-    box-sizing: border-box;
+  .client-home {
+    flex: 1;
+    overflow: auto;
+    .menu-content {
+      height: 65%;
+    }
+    .bottom-home {
+      width: 100%;
+      box-sizing: border-box;
+    }
   }
 }
 </style>
