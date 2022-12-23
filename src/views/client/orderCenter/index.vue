@@ -120,7 +120,7 @@ export default {
       } else if (row.state == 3) {
         this.evaluateShow = true
       } else if (row.state == 6) {
-        paysPay({ orderNum: row.orderNum }).then(res => {})
+        paysPay(row.orderNum).then(res => {})
         this.$message.success('支付成功')
       }
     },

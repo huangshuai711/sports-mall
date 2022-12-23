@@ -83,10 +83,15 @@ export function addOrder(parameter) {
 }
 
 // 下单、加入购物车
-export function paysPay(parameter) {
-  return request({
-    url: `/api/pays/pay`,
-    method: 'post',
-    data: parameter
+export function paysPay(id) {
+  return new Promise((res, rej) => {
+    var a = document.createElement('a')
+    a.href = process.env.VUE_APP_BASE_URL + '/api/pays/pay/' + id
+    a.target = '_blank'
+    a.rel = 'noreferrer'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    res()
   })
 }

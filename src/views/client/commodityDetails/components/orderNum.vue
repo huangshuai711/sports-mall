@@ -71,7 +71,7 @@ export default {
             if (res.code == 200) {
               this.$message.success(this.title + '成功')
               if (this.title == '下单') {
-                paysPay({ orderNum: res.data }).then(res => {
+                paysPay(res.data).then(res => {
                   this.$router.push('/client/orderCenter')
                 })
               } else {
