@@ -10,13 +10,14 @@
       <el-dropdown @command="handleCommand">
         <div class="avatar imges"><img :src="userInfo?.avatar" alt="" /></div>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="info">个人信息</el-dropdown-item>
-          <el-dropdown-item command="editInfo">修改资料</el-dropdown-item>
-          <el-dropdown-item command="editPassWord">修改密码</el-dropdown-item>
-          <el-dropdown-item command="myCollect">我的收藏</el-dropdown-item>
-          <el-dropdown-item command="orderCenter">订单中心</el-dropdown-item>
-          <el-dropdown-item command="lookRecord">浏览记录</el-dropdown-item>
-          <el-dropdown-item command="signOut">退出登录</el-dropdown-item>
+          <el-dropdown-item v-if="userInfo" command="info">个人信息</el-dropdown-item>
+          <el-dropdown-item v-if="userInfo" command="editInfo">修改资料</el-dropdown-item>
+          <el-dropdown-item v-if="userInfo" command="editPassWord">修改密码</el-dropdown-item>
+          <el-dropdown-item v-if="userInfo" command="myCollect">我的收藏</el-dropdown-item>
+          <el-dropdown-item v-if="userInfo" command="orderCenter">订单中心</el-dropdown-item>
+          <el-dropdown-item v-if="userInfo" command="lookRecord">浏览记录</el-dropdown-item>
+          <el-dropdown-item v-if="userInfo" command="signOut">退出登录</el-dropdown-item>
+          <el-dropdown-item v-if="!userInfo" command="goLogin">去登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -67,6 +68,8 @@ export default {
         this.$router.push('/client/orderCenter')
       } else if (command == 'lookRecord') {
         this.$router.push('/client/record')
+      } else if (command == 'goLogin') {
+        this.$router.push('/user/login')
       }
     },
     async getUserInfo() {

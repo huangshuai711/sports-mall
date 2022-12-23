@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="form-box">
-      <div class="youke"><el-link>游客登录</el-link></div>
+      <div class="youke" @click="youke"><el-link>游客登录</el-link></div>
       <el-form
         :model="ruleForm"
         :rules="rules"
@@ -122,6 +122,9 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
+    },
+    youke() {
+      this.$router.push('/client/home')
     },
     echo(data) {
       if (!data) return
