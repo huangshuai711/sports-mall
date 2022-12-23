@@ -54,8 +54,7 @@ export default {
               key: 'delivery',
               dict: { 2: '签收', 3: '评价', 5: '下单', 6: '去支付' },
               link: 'state'
-            },
-            { key: 'delete', name: '删除' }
+            }
           ]
         }
       ],
