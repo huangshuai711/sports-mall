@@ -121,7 +121,6 @@ export default {
         this.evaluateShow = true
       } else if (row.state == 6) {
         paysPay(row.orderNum).then(res => {})
-        this.$message.success('支付成功')
       }
     },
     async getData() {

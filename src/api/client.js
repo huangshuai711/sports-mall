@@ -87,7 +87,7 @@ export function paysPay(id) {
   return new Promise((res, rej) => {
     var a = document.createElement('a')
     a.href = process.env.VUE_APP_BASE_URL + '/api/pays/pay/' + id
-    a.target = '_blank'
+    a.target = '_self'
     a.rel = 'noreferrer'
     document.body.appendChild(a)
     a.click()
