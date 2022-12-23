@@ -23,7 +23,7 @@
 import SearchFrom from '@/components/searchFrom'
 import Table from '@/components/table'
 import Pagination from '@/components/pagination'
-import { getOrderArr } from '@/api/client'
+import { getOrderArr, paysPay } from '@/api/client'
 import { changeOrderState } from '@/api/order'
 import Details from './components/details.vue'
 import Evaluate from './components/evaluate.vue'
@@ -50,7 +50,11 @@ export default {
           label: '操作',
           btn: [
             { key: 'details', name: '详情' },
-            { key: 'delivery', dict: { 2: '签收', 3: '评价', 5: '下单' }, link: 'state' },
+            {
+              key: 'delivery',
+              dict: { 2: '签收', 3: '评价', 5: '下单', 6: '去支付' },
+              link: 'state'
+            },
             { key: 'delete', name: '删除' }
           ]
         }
@@ -92,8 +96,8 @@ export default {
       } catch (error) {}
     },
     delivery(row) {
-      if (rouw.state == 2 || rouw.state == 5) {
-        const text = rouw.state == 2 ? '签收' : '下单'
+      if (row.state == 2 || row.state == 5) {
+        const text = row.state == 2 ? '签收' : '下单'
         this.$confirm(`确认${text}？`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -102,7 +106,7 @@ export default {
           .then(() => {
             const param = {
               id: row.id,
-              state: rouw.state == 2 ? 3 : 6
+              state: row.state == 2 ? 3 : 6
             }
             changeOrderState(param).then(res => {
               if (res.code == 200) {
@@ -114,8 +118,11 @@ export default {
             })
           })
           .catch(() => {})
-      } else if (rouw.state == 3) {
+      } else if (row.state == 3) {
         this.evaluateShow = true
+      } else if (row.state == 6) {
+        paysPay({ orderNum: row.orderNum }).then(res => {})
+        this.$message.success('支付成功')
       }
     },
     async getData() {
