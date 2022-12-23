@@ -22,7 +22,7 @@
 </template>
 <script>
 import Table from '@/components/table'
-import { commentList } from '@/api/client'
+import { addOrder } from '@/api/client'
 export default {
   components: { Table },
   model: {
@@ -64,10 +64,19 @@ export default {
       this.$refs.from.validate(valid => {
         if (valid) {
           const param = {
-            orderProduct: this.formRole
+            stateStr: this.title === '加入购物车' ? 5 : 6,
+            orderProduct: { ...this.formRole, productId: this.id }
           }
+          addOrder(param).then(res => {
+            if (res.code == 200) {
+              this.$message.success(this.title + '成功')
+              this.$refs.from.resetFields()
+              this.close()
+            } else {
+              this.$message.error(res.msg)
+            }
+          })
         } else {
-          console.log('error submit!!')
           return false
         }
       })

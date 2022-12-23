@@ -73,3 +73,11 @@ export function commentList(id) {
     method: 'post'
   })
 }
+// 下单、加入购物车
+export function addOrder(parameter) {
+  return request({
+    url: `/api/userHomes/order`,
+    method: 'post',
+    data: parameter
+  })
+}
