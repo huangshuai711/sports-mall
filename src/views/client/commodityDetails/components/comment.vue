@@ -16,7 +16,6 @@
 </template>
 <script>
 import Table from '@/components/table'
-import { commentList } from '@/api/client'
 export default {
   components: { Table },
   model: {
@@ -50,7 +49,6 @@ export default {
   watch: {
     fatherShow(val) {
       this.childShow = val
-      val && this.getData()
     }
   },
   created() {},
@@ -58,13 +56,6 @@ export default {
   methods: {
     close() {
       this.$emit('shoChange', false)
-    },
-    async getData() {
-      try {
-        this.loading = true
-        this.tableData = await commentList(this.id).then(res => res.data)
-        this.loading = false
-      } catch (error) {}
     }
   }
 }

@@ -6,7 +6,8 @@
     width="600px"
     :before-close="close"
     center
-    ><el-form :model="formRole" ref="from" label-width="100px" class="demo-ruleForm">
+  >
+    <el-form :model="formRole" ref="from" label-width="100px" class="demo-ruleForm">
       <el-form-item label="数量" prop="num">
         <el-input-number v-model="formRole.num" :min="1" label="描述文字"></el-input-number>
       </el-form-item>

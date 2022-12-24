@@ -1,10 +1,10 @@
 <template>
   <div class="box">
     <Exhibition ref="exhibition" :formArr="formArr" :data="data"></Exhibition>
-    <Comment v-model="commentShow" :id="id"></Comment>
+    <Comment ref="comment" v-model="commentShow" :id="id"></Comment>
     <OrderNum ref="orderNum" v-model="orderNumShow" :id="id"></OrderNum>
     <div>
-      <el-button size="mini" type="primary" @click="commentShow = true">查看评论</el-button>
+      <el-button size="mini" type="primary" @click="showComment">查看评论</el-button>
       <el-button size="mini" type="primary" @click="addShopp">加入购物车</el-button>
       <el-button size="mini" type="primary" @click="placeOrder">下单</el-button>
       <el-button size="mini" type="primary" @click="back">返回</el-button>
@@ -44,6 +44,10 @@ export default {
     }
   },
   methods: {
+    showComment() {
+      this.$refs.comment.data = this.data?.commentDtoList || []
+      this.commentShow = true
+    },
     back() {
       this.$router.go(-1)
     },
