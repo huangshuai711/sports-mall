@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default {
   state: {
     productType: '',
-    searchText: ''
+    searchText: { val: '', trigger: false }
   },
   getters: {
     getProductType(state) {

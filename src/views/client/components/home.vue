@@ -35,11 +35,14 @@ export default {
       return this.$store.getters.getProductType
     },
     searchValue() {
-      return this.$store.getters.getSearchText
+      return this.$store.getters?.getSearchText?.val || ''
+    },
+    searchTrigger() {
+      return this.$store.getters?.getSearchText?.trigger || false
     },
     refresh() {
-      const { productType, searchValue, name } = this
-      return { productType, searchValue, name }
+      const { productType, searchTrigger, name } = this
+      return { productType, searchTrigger, name }
     }
   },
   watch: {

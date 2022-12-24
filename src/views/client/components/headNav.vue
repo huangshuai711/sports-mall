@@ -79,7 +79,10 @@ export default {
       this.$router.push('/client/home')
     },
     search() {
-      this.$store.commit('SET_SEARCHTEXT', this.searchValue)
+      this.$store.commit('SET_SEARCHTEXT', {
+        val: this.searchValue,
+        trigger: !this.$store.getters?.getSearchText?.trigger
+      })
     },
     info() {
       this.$refs.detail.data = this.userInfo
