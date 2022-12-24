@@ -2,7 +2,13 @@
   <div class="headNav">
     <div class="pro-name" @click="goHome">运动用品购物平台</div>
     <div class="search">
-      <el-input v-model="searchValue" placeholder="请输入搜索内容"></el-input>
+      <el-autocomplete
+        style="width: 100%"
+        class="inline-input"
+        v-model="searchValue"
+        :fetch-suggestions="querySearch"
+        placeholder="请输入搜索内容"
+      ></el-autocomplete>
       <el-button type="primary" @click="search">搜索</el-button>
     </div>
     <div class="info">
@@ -48,7 +54,9 @@ export default {
       return store.getters.getUserInfo
     }
   },
-  created() {},
+  created() {
+    this.restaurants = this.loadAll()
+  },
   methods: {
     ...mapActions(['Logout', 'GetInfo']),
     handleCommand(command) {
@@ -74,6 +82,20 @@ export default {
     },
     async getUserInfo() {
       this.GetInfo()
+    },
+    querySearch(queryString, cb) {
+      var restaurants = this.restaurants
+      var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants
+      // 调用 callback 返回建议列表的数据
+      cb(results)
+    },
+    createFilter(queryString) {
+      return restaurant => {
+        return restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+      }
+    },
+    loadAll() {
+      return [{ value: '运动' }, { value: '保健品' }, { value: '球' }, { value: '低脂' }]
     },
     goHome() {
       this.$router.push('/client/home')
