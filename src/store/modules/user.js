@@ -1,5 +1,5 @@
 import storage from 'store'
-import { login, adminLogin, clientLogin, getUserInfoByToken } from '@/api/user.js'
+import { adminLogin, clientLogin, getUserInfoByToken } from '@/api/user.js'
 import route from '@/router'
 import { ACCESS_TOKEN, STORAGE_ACCOUNT } from '@/store/mutation-types'
 

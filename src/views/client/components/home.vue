@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import { getCommoditys, switchCollectState } from '@/api/client'
+import { getCommoditys, getTjCommoditys, switchCollectState } from '@/api/client'
 export default {
   data() {
     return {
@@ -56,9 +56,10 @@ export default {
   methods: {
     async getData() {
       try {
-        const param = this.productType ? { productTypeId: this.productType } : { isRecommend: 1 }
-        param.productName = this.searchValue
-        this.commoditys = await getCommoditys(param).then(res => res.data)
+        const param = this.productType ? { productTypeId: this.productType } : {}
+        // param.productName = this.searchValue
+        const inte = this.productType ? getCommoditys : getTjCommoditys
+        this.commoditys = await inte(param).then(res => res.data)
       } catch (error) {}
     },
     async collect(item) {

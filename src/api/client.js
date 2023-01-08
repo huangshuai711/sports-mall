@@ -17,6 +17,15 @@ export function getCommoditys(parameter) {
   })
 }
 
+// 获取推荐商品列表
+export function getTjCommoditys(parameter) {
+  return request({
+    url: `/api/userHomes/commodity`,
+    method: 'POST',
+    data: parameter
+  })
+}
+
 // 切换收藏状态
 export function switchCollectState(parameter) {
   return request({

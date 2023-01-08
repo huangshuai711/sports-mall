@@ -3,6 +3,7 @@ import store from '@/store'
 import router from '@/router'
 import storage from 'store'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
+import { Notification, MessageBox, Message, Loading } from 'element-ui'
 
 const request = axios.create({
   // API 请求的默认前缀
@@ -22,7 +23,15 @@ const errorHandler = error => {
           }, 1500)
         })
       } else {
-        router.push('/user/login')
+        MessageBox.confirm('您现在游客身份，请注册登录进行购买', '系统提示', {
+          confirmButtonText: '登录',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(() => {
+            router.push('/user/clientLogin')
+          })
+          .catch(() => {})
       }
     }
     if (error.response.status !== 1 && error.response.status !== 404) {
