@@ -25,8 +25,13 @@ const routes = [
     component: () => import('@/views/user/'),
     children: [
       {
-        path: 'login',
-        name: 'login',
+        path: 'adminLogin',
+        name: 'adminLogin',
+        component: () => import('@/views/user/login')
+      },
+      {
+        path: 'clientLogin',
+        name: 'clientLogin',
         component: () => import('@/views/user/login')
       },
       {
@@ -80,7 +85,7 @@ router.beforeEach(async (to, from, next) => {
   let token = storage.get(ACCESS_TOKEN)
   const isClient = to.path.indexOf('/client/') != -1
   // 白名单(不需要登录就可以访问的名单)
-  const whiteList = ['/user/login', '/user/signUp']
+  const whiteList = ['/user/adminLogin', '/user/clientLogin', '/user/signUp']
   if (token) {
     let userInfo = store.getters.getUserInfo
     if (!userInfo) {
@@ -140,13 +145,12 @@ router.beforeEach(async (to, from, next) => {
       }
     }
   } else {
-    console.log('123465', whiteList.includes(to.path) || isClient)
     if (whiteList.includes(to.path) || isClient) {
       next()
     } else if (to.path == '/client') {
       next('/client/home')
     } else {
-      next(`/user/login`)
+      next(`/user/clientLogin`)
     }
   }
 })

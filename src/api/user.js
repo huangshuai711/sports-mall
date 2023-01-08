@@ -2,10 +2,18 @@ import request from '@/utils/request'
 import axios from 'axios'
 
 axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
-// 登录
-export function login(parameter) {
+// 管理员登录
+export function adminLogin(parameter) {
   return axios({
-    url: '/api/user/login',
+    url: '/api/user/adminLogin',
+    method: 'post',
+    data: parameter
+  })
+}
+// 用户登录
+export function clientLogin(parameter) {
+  return axios({
+    url: '/api/user/clientLogin',
     method: 'post',
     data: parameter
   })

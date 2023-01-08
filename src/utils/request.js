@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
+import router from '@/router'
 import storage from 'store'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
@@ -13,19 +14,15 @@ const errorHandler = error => {
     const data = error.response.data
     // 从 localstorage 获取 token
     const token = storage.get(ACCESS_TOKEN)
-    if (error.response.status === 403) {
-      console.log({
-        message: 'Forbidden',
-        description: data.message
-      })
-    }
-    if (error.response.status === 401) {
+    if (error.response.status === 603) {
       if (token) {
         store.dispatch('Logout').then(() => {
           setTimeout(() => {
             window.location.reload()
           }, 1500)
         })
+      } else {
+        router.push('/user/login')
       }
     }
     if (error.response.status !== 1 && error.response.status !== 404) {

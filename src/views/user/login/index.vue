@@ -1,7 +1,8 @@
 <template>
   <div class="login">
+    <div class="title">{{ loginType ? '管理员登录' : '用户登录' }}</div>
     <div class="form-box">
-      <div class="youke" @click="youke"><el-link>游客登录</el-link></div>
+      <div class="youke" @click="youke" v-if="!loginType"><el-link>游客登录</el-link></div>
       <el-form
         :model="ruleForm"
         :rules="rules"
@@ -9,7 +10,7 @@
         label-width="50px"
         label-position="left"
         :hide-required-asterisk="true"
-        style="width: 100%"
+        style="width: 100%; margin-top: 30px"
       >
         <el-form-item label="账号" prop="username">
           <el-autocomplete
@@ -63,6 +64,11 @@ export default {
       },
       restaurants: [],
       state: ''
+    }
+  },
+  computed: {
+    loginType() {
+      return this.$route?.name == 'adminLogin' ? 1 : 0
     }
   },
   mounted() {
@@ -133,7 +139,7 @@ export default {
       })
     },
     goSignUp() {
-      this.$router.push('/user/signUp')
+      this.$router.push({ path: '/user/signUp', query: { loginType: this.loginType } })
     }
   }
 }
@@ -148,6 +154,11 @@ export default {
   background-size: 100% 100%;
   height: 100vh;
   width: 100vw;
+  .title {
+    position: relative;
+    top: 8%;
+    font-size: 40px;
+  }
   .form-box {
     margin-top: 10%;
     width: 300px;
@@ -157,7 +168,6 @@ export default {
     background-color: #fff;
     .youke {
       text-align: right;
-      margin-bottom: 30px;
     }
     .btn {
       margin-top: 10px;

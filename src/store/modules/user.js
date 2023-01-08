@@ -1,5 +1,6 @@
 import storage from 'store'
-import { login, logout, getUserInfoByToken } from '@/api/user.js'
+import { login, adminLogin, clientLogin, getUserInfoByToken } from '@/api/user.js'
+import route from '@/router'
 import { ACCESS_TOKEN, STORAGE_ACCOUNT } from '@/store/mutation-types'
 
 const user = {
@@ -38,6 +39,7 @@ const user = {
     // 登录
     Login({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
+        const login = route.app.$route.name == 'adminLogin' ? adminLogin : clientLogin
         login(userInfo)
           .then(response => {
             const result = response.data

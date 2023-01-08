@@ -33,12 +33,18 @@ export default {
       ]
     }
   },
+  computed: {
+    loginType() {
+      return this.$route?.query?.loginType || 0
+    }
+  },
   methods: {
     async submitForm() {
       try {
         const valid = await this.$refs.formlists.checkFrom()
         if (valid) {
           const params = this.$refs.formlists.getData()
+          params.userType = this.loginType ? 1 : 2
           const res = await signUp(params)
           if (res.data.code == 200) {
             this.$message.success('注册成功')
