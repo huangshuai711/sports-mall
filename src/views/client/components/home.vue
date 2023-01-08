@@ -122,7 +122,7 @@ export default {
   overflow: auto;
   box-sizing: border-box;
   .locNav {
-    background-color: rgb(224, 23, 39);
+    background-color: rgb(64, 158, 255);
     height: 40px;
     line-height: 40px;
     color: #fff;
