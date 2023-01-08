@@ -14,7 +14,7 @@
           </div>
         </div>
       </div>
-      <div class="bottom-home" v-if="$route.path == '/client/home'">
+      <div class="bottom-home">
         <Home></Home>
       </div>
     </div>
@@ -86,8 +86,9 @@ export default {
   .client-home {
     flex: 1;
     overflow: auto;
+    padding: 0 10%;
     .menu-content {
-      height: 65%;
+      height: 25vw;
     }
     .bottom-home {
       width: 100%;

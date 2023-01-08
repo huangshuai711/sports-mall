@@ -35,7 +35,6 @@ export default {
 <style lang="scss" scoped>
 .box {
   height: 100%;
-  padding-left: 200px;
   overflow: auto;
 }
 ::v-deep .el-carousel__container {
@@ -44,7 +43,7 @@ export default {
 ::v-deep .el-carousel__container:before {
   content: ' ';
   display: block;
-  padding-top: 40%;
+  padding-top: 25vw;
 }
 ::v-deep .el-carousel {
   position: relative;
