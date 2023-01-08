@@ -15,7 +15,7 @@ const errorHandler = error => {
     const data = error.response.data
     // 从 localstorage 获取 token
     const token = storage.get(ACCESS_TOKEN)
-    if (error.response.status === 603) {
+    if (error.response.status === 601) {
       if (token) {
         store.dispatch('Logout').then(() => {
           setTimeout(() => {
