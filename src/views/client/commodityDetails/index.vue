@@ -9,9 +9,12 @@
         <div class="price">
           价格：<span>￥{{ data.promotionPrice }}</span>
         </div>
-        <div class="num">数量： <el-input-number v-model="num" :min="0"></el-input-number></div>
+        <div class="num">数量： <el-input-number v-model="num" :min="1"></el-input-number></div>
         <div class="info-btn">
           <el-button size="mini" type="primary" @click="addShopp">加入购物车</el-button>
+          <el-button size="mini" type="primary" @click="collect(data)">{{
+            data.isComment == 1 ? '取消收藏' : '收藏'
+          }}</el-button>
           <el-button size="mini" type="primary" @click="placeOrder">下单</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>
         </div>
@@ -67,7 +70,7 @@ import Exhibition from '@/components/exhibition'
 import { getDetails } from '@/api/commodity'
 import Comment from './components/comment.vue'
 import OrderNum from './components/orderNum.vue'
-import { getTjCommoditys } from '@/api/client'
+import { getTjCommoditys, switchCollectState } from '@/api/client'
 import Table from '@/components/table'
 export default {
   components: { Exhibition, Comment, OrderNum, Table },
@@ -81,7 +84,7 @@ export default {
       data: null,
       commentShow: false,
       orderNumShow: false,
-      num: 0,
+      num: 1,
       tjcommoditys: [],
       activeTab: 'js'
     }
@@ -105,10 +108,13 @@ export default {
     },
     addShopp() {
       this.$refs.orderNum.title = '加入购物车'
+      this.$refs.orderNum.formRole.num = this.num
+
       this.orderNumShow = true
     },
     placeOrder() {
       this.$refs.orderNum.title = '下单'
+      this.$refs.orderNum.formRole.num = this.num
       this.orderNumShow = true
     },
     async getData() {
@@ -124,6 +130,19 @@ export default {
     async gettjData() {
       try {
         this.tjcommoditys = await getTjCommoditys({}).then(res => res.data)
+      } catch (error) {}
+    },
+    async collect(item) {
+      const params = {
+        id: item.id,
+        type: item.isComment == 1 ? 2 : 1
+      }
+      try {
+        const res = await switchCollectState(params)
+        if (res?.code == 200) {
+          this.$message.success(item.isComment == 1 ? '收藏成功' : '取消成功')
+          this.getData()
+        }
       } catch (error) {}
     },
     close() {
