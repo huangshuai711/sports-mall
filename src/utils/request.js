@@ -15,25 +15,8 @@ const errorHandler = error => {
     const data = error.response.data
     // 从 localstorage 获取 token
     const token = storage.get(ACCESS_TOKEN)
-    if (error.response.status === 601) {
-      if (token) {
-        store.dispatch('Logout').then(() => {
-          setTimeout(() => {
-            window.location.reload()
-          }, 1500)
-        })
-      } else {
-        MessageBox.confirm('您现在游客身份，请注册登录进行购买', '系统提示', {
-          confirmButtonText: '登录',
-          cancelButtonText: '取消',
-          type: 'warning'
-        })
-          .then(() => {
-            router.push('/user/clientLogin')
-          })
-          .catch(() => {})
-      }
-    }
+    console.log('error', error)
+
     if (error.response.status !== 1 && error.response.status !== 404) {
       message.error(
         data.message ? data.message : '服务器繁忙或网络错误，请检查网络是否通畅，稍后再试.'
@@ -54,12 +37,22 @@ request.interceptors.request.use(config => {
 }, errorHandler)
 
 request.interceptors.response.use(response => {
-  if (response.data.status === 401 || response.data.status === 456) {
+  if (response.data.code === 401 || response.data.status === 456) {
     store.dispatch('Logout').then(() => {
       setTimeout(() => {
         window.location.reload()
       }, 1500)
     })
+  } else if (response.data.code === 601) {
+    MessageBox.confirm('您现在游客身份，请注册登录进行购买', '系统提示', {
+      confirmButtonText: '登录',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+      .then(() => {
+        router.push('/user/clientLogin')
+      })
+      .catch(() => {})
   } else {
     return response.data
   }
