@@ -25,6 +25,14 @@ export function getTjCommoditys(parameter) {
     data: parameter
   })
 }
+// 新品商品列表
+export function getNewCommoditys(parameter) {
+  return request({
+    url: `/api/userHomes/newProduct`,
+    method: 'POST',
+    data: parameter
+  })
+}
 
 // 切换收藏状态
 export function switchCollectState(parameter) {

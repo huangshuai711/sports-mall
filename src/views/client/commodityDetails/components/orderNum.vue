@@ -69,7 +69,7 @@ export default {
             orderProduct: { ...this.formRole, productId: this.id }
           }
           addOrder(param).then(res => {
-            if (res.code == 200) {
+            if (res?.code == 200) {
               this.$message.success(this.title + '成功')
               if (this.title == '下单') {
                 paysPay(res.data).then(res => {
@@ -80,7 +80,7 @@ export default {
                 this.close()
               }
             } else {
-              this.$message.error(res.msg)
+              this.$message.error(res?.msg)
             }
           })
         } else {

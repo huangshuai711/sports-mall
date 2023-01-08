@@ -1,33 +1,65 @@
 <template>
   <div class="box">
-    <div class="commodity-box" v-for="item in commoditys" :key="item.id" @click="goDetail(item)">
-      <div class="pic"><img :src="item.sysFile?.filePath" alt="" /></div>
-      <div class="info info1">
-        <div class="name ellip">{{ item.productName }}</div>
-        <span @click="collect(item)">
-          <Icon
-            class="icon"
-            :type="item.isComment == 1 ? 'collYes' : 'collNo'"
-            width="30px"
-            height="30px"
-          ></Icon>
-        </span>
-      </div>
-      <div class="info info2">
-        <div class="price">
-          {{ item.promotionPrice }} <span class="orPrice">{{ item.originalPrice }}</span>
+    <div class="locNav" v-if="!productType">推荐商品</div>
+    <div class="commodits">
+      <div class="commodity-box" v-for="item in commoditys" :key="item.id" @click="goDetail(item)">
+        <div class="pic"><img :src="item.sysFile?.filePath" alt="" /></div>
+        <div class="info info1">
+          <div class="name ellip">{{ item.productName }}</div>
+          <span @click="collect(item)">
+            <Icon
+              class="icon"
+              :type="item.isComment == 1 ? 'collYes' : 'collNo'"
+              width="30px"
+              height="30px"
+            ></Icon>
+          </span>
         </div>
-        <div class="pps ellip">{{ item.brandingBusiness }}</div>
+        <div class="info info2">
+          <div class="price">
+            {{ item.promotionPrice }} <span class="orPrice">{{ item.originalPrice }}</span>
+          </div>
+          <div class="pps ellip">{{ item.brandingBusiness }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="locNav" v-if="!productType">新品上市</div>
+    <div class="commodits" v-if="!productType">
+      <div
+        class="commodity-box"
+        v-for="item in newCommoditys"
+        :key="item.id"
+        @click="goDetail(item)"
+      >
+        <div class="pic"><img :src="item.sysFile?.filePath" alt="" /></div>
+        <div class="info info1">
+          <div class="name ellip">{{ item.productName }}</div>
+          <span @click="collect(item)">
+            <Icon
+              class="icon"
+              :type="item.isComment == 1 ? 'collYes' : 'collNo'"
+              width="30px"
+              height="30px"
+            ></Icon>
+          </span>
+        </div>
+        <div class="info info2">
+          <div class="price">
+            {{ item.promotionPrice }} <span class="orPrice">{{ item.originalPrice }}</span>
+          </div>
+          <div class="pps ellip">{{ item.brandingBusiness }}</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { getCommoditys, getTjCommoditys, switchCollectState } from '@/api/client'
+import { getCommoditys, getTjCommoditys, switchCollectState, getNewCommoditys } from '@/api/client'
 export default {
   data() {
     return {
-      commoditys: []
+      commoditys: [],
+      newCommoditys: []
     }
   },
   computed: {
@@ -52,14 +84,19 @@ export default {
   },
   created() {
     this.getData()
+    this.getNewData()
   },
   methods: {
     async getData() {
       try {
         const param = this.productType ? { productTypeId: this.productType } : {}
-        // param.productName = this.searchValue
         const inte = this.productType ? getCommoditys : getTjCommoditys
         this.commoditys = await inte(param).then(res => res.data)
+      } catch (error) {}
+    },
+    async getNewData() {
+      try {
+        this.newCommoditys = await getNewCommoditys({}).then(res => res.data)
       } catch (error) {}
     },
     async collect(item) {
@@ -84,9 +121,21 @@ export default {
   height: 100%;
   overflow: auto;
   box-sizing: border-box;
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
+  .locNav {
+    background-color: rgb(224, 23, 39);
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    margin-top: 10px;
+    padding-left: 50px;
+  }
+  .commodits {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding: 20px;
+  }
   .commodity-box {
     cursor: pointer;
     width: 200px;

@@ -43,7 +43,7 @@ request.interceptors.response.use(response => {
         window.location.reload()
       }, 1500)
     })
-  } else if (response.data.code === 601) {
+  } else if (response?.data?.code === 601) {
     MessageBox.confirm('您现在游客身份，请注册登录进行购买', '系统提示', {
       confirmButtonText: '登录',
       cancelButtonText: '取消',
