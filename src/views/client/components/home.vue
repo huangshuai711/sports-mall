@@ -6,7 +6,7 @@
         <div class="pic"><img :src="item.sysFile?.filePath" alt="" /></div>
         <div class="info info1">
           <div class="name ellip">{{ item.productName }}</div>
-          <span @click="collect(item)">
+          <span @click.stop="collect(item)">
             <Icon
               class="icon"
               :type="item.isComment == 1 ? 'collYes' : 'collNo'"
@@ -34,7 +34,7 @@
         <div class="pic"><img :src="item.sysFile?.filePath" alt="" /></div>
         <div class="info info1">
           <div class="name ellip">{{ item.productName }}</div>
-          <span @click="collect(item)">
+          <span @click.stop="collect(item)">
             <Icon
               class="icon"
               :type="item.isComment == 1 ? 'collYes' : 'collNo'"

@@ -24,7 +24,7 @@
       <div class="tj">
         <div class="title">商品推荐</div>
         <div class="item-box">
-          <div class="item" v-for="item in tjcommoditys" :key="item.id">
+          <div class="item" v-for="item in tjcommoditys" :key="item.id" @click="comJump(item)">
             <div class="name">{{ item.productName }}</div>
             <div class="price">￥{{ item.originalPrice }}</div>
           </div>
@@ -105,6 +105,10 @@ export default {
     },
     back() {
       this.$router.go(-1)
+    },
+    comJump(item) {
+      this.$router.push({ path: '/client/commodityDetails', query: { id: item.id } })
+      this.getData()
     },
     addShopp() {
       this.$refs.orderNum.title = '加入购物车'
