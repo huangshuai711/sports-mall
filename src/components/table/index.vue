@@ -3,11 +3,14 @@
     :data="tableData"
     :border="true"
     v-loading="loading"
+    :row-key="rowKey"
+    ref="multipleTable"
     style="width: 100%"
     :cell-style="{ 'text-align': 'center' }"
     :header-cell-style="{ 'text-align': 'center' }"
-  >
-    <el-table-column label="#" type="index" width="50"> </el-table-column>
+    @selection-change="handleSelectionChange"
+    ><el-table-column v-if="selection" type="selection" width="55"> </el-table-column>
+    <el-table-column v-if="showIndex" label="#" type="index" width="50"> </el-table-column>
     <el-table-column
       v-for="item in tableRow"
       :key="item.key"
@@ -33,10 +36,13 @@
           <el-image
             v-if="scope.row[item.key]"
             style="height: 80px; max-width: 100px"
-            :src="reImgUrl(scope.row[item.key])"
+            :src="scope.row[item.key]"
             :preview-src-list="[scope.row[item.key]]"
           >
           </el-image>
+        </template>
+        <template v-else-if="item?.type == 'slot'">
+          <slot :name="item.key" :index="scope.$index"></slot>
         </template>
         <template v-else>
           <span>{{
@@ -63,15 +69,53 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    selection: {
+      type: Boolean,
+      default: false
+    },
+    showIndex: {
+      type: Boolean,
+      default: true
+    },
+    rowKey: {
+      type: String,
+      default: 'id'
     }
   },
   data() {
-    return {}
+    return {
+      multipleSelection: [],
+      multipleSelectionId: []
+    }
   },
   computed: {},
   methods: {
     operateEvent(row, key) {
       this.$emit('operateEvent', { row, key })
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+      this.multipleSelectionId = val.map(item => item?.id)
+    },
+    clearSelection(rows) {
+      this.$refs.multipleTable.clearSelection()
+    },
+    getMultipleSelection() {
+      return this.multipleSelection
+    },
+    getIds() {
+      return this.multipleSelectionId
+    },
+    toggleSelection(rows) {
+      if (rows) {
+        rows.forEach(row => {
+          const newRow = this.tableData?.find(item => item.id == row.roleId)
+          newRow && this.$refs.multipleTable.toggleRowSelection(newRow)
+        })
+      } else {
+        this.$refs.multipleTable.clearSelection()
+      }
     }
   }
 }

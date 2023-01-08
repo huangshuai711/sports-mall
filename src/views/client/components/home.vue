@@ -86,9 +86,6 @@ export default {
   methods: {
     async getData() {
       try {
-        // const param = this.productType ? { productTypeId: this.productType } : {}
-        // const inte = this.productType ? getCommoditys : getTjCommoditys
-        // this.commoditys = await inte(param).then(res => res.data)
         this.commoditys = await getTjCommoditys({}).then(res => res.data)
       } catch (error) {}
     },

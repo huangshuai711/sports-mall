@@ -105,3 +105,20 @@ export function paysPay(id) {
     res()
   })
 }
+
+// 获取购物车列表
+export function getShoppingCartArr(parameter, paging) {
+  return request({
+    url: `/api/userHomes/pageOrder/${paging.pageNum}/${paging.pageSize}`,
+    method: 'post',
+    data: parameter
+  })
+}
+
+// 修改购物车数量
+export function gchangeShoppingCartNum(parameter) {
+  return request({
+    url: `/api/userHomes/updateNum/${parameter.orderId}/${parameter.num}`,
+    method: 'post'
+  })
+}
