@@ -51,6 +51,11 @@ const routes = [
         component: () => import('@/views/client/home')
       },
       {
+        path: 'allClass',
+        name: 'allClass',
+        component: () => import('@/views/client/allClass')
+      },
+      {
         path: 'commodityDetails',
         name: 'commodityDetails',
         component: () => import('@/views/client/commodityDetails')
@@ -69,6 +74,11 @@ const routes = [
         path: 'collection',
         name: 'collection',
         component: () => import('@/views/client/myCollect')
+      },
+      {
+        path: 'shoppingCart',
+        name: 'shoppingCart',
+        component: () => import('@/views/client/shoppingCart')
       }
     ]
   }

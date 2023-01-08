@@ -198,14 +198,17 @@ export default {
     margin-top: 50px;
     flex: 1;
     display: flex;
+    position: relative;
     overflow: hidden;
     .tj {
       width: 250px;
       height: 100%;
-      margin-right: 50px;
       box-shadow: 0 3px 12px rgb(98 107 181 / 25%);
       border-radius: 5px;
       overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
       display: flex;
       flex-direction: column;
       .title {
@@ -219,8 +222,9 @@ export default {
       .item-box {
         background-color: #fff;
         flex: 1;
-        overflow: auto;
+        overflow: hidden;
         padding: 20px;
+        padding-bottom: 9999px;
         .item {
           cursor: pointer;
           height: 80px;
@@ -234,6 +238,7 @@ export default {
       }
     }
     .js-pl {
+      margin-left: 300px;
       flex: 1;
       .js-pl-box {
         height: 100%;

@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <div class="locNav" v-if="!productType">推荐商品</div>
+    <div class="locNav">推荐商品</div>
     <div class="commodits">
       <div class="commodity-box" v-for="item in commoditys" :key="item.id" @click="goDetail(item)">
         <div class="pic"><img :src="item.sysFile?.filePath" alt="" /></div>
@@ -23,8 +23,8 @@
         </div>
       </div>
     </div>
-    <div class="locNav" v-if="!productType">新品上市</div>
-    <div class="commodits" v-if="!productType">
+    <div class="locNav">新品上市</div>
+    <div class="commodits">
       <div
         class="commodity-box"
         v-for="item in newCommoditys"
@@ -63,9 +63,6 @@ export default {
     }
   },
   computed: {
-    productType() {
-      return this.$store.getters.getProductType
-    },
     searchValue() {
       return this.$store.getters?.getSearchText?.val || ''
     },
@@ -73,8 +70,8 @@ export default {
       return this.$store.getters?.getSearchText?.trigger || false
     },
     refresh() {
-      const { productType, searchTrigger, name } = this
-      return { productType, searchTrigger, name }
+      const { searchTrigger, name } = this
+      return { searchTrigger, name }
     }
   },
   watch: {
@@ -89,9 +86,10 @@ export default {
   methods: {
     async getData() {
       try {
-        const param = this.productType ? { productTypeId: this.productType } : {}
-        const inte = this.productType ? getCommoditys : getTjCommoditys
-        this.commoditys = await inte(param).then(res => res.data)
+        // const param = this.productType ? { productTypeId: this.productType } : {}
+        // const inte = this.productType ? getCommoditys : getTjCommoditys
+        // this.commoditys = await inte(param).then(res => res.data)
+        this.commoditys = await getTjCommoditys({}).then(res => res.data)
       } catch (error) {}
     },
     async getNewData() {
@@ -107,6 +105,7 @@ export default {
       try {
         await switchCollectState(params)
         this.getData()
+        this.getNewData()
       } catch (error) {}
     },
     goDetail(item) {
