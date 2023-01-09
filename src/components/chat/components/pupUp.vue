@@ -56,6 +56,7 @@ export default {
             list.push(this.setRobotDia(item.createTime, item.beforeWord))
             list.push(this.setMineDia(item.createTime, item.userChoose))
           })
+          this.new_data = res[res.length - 1]
           this.list = list
         } else {
           const record = await initTalk().then(res => res.data)
@@ -104,8 +105,9 @@ export default {
       const msg = this.inputMsg
       if (!msg) return
       const param = {
-        beforeWordKey: this.new_data.beforeWordKey || 5,
-        robotCode: this.new_data.robotCode,
+        beforeWordKey: this.new_data?.beforeWordKey || 5,
+        beforeWord: this.new_data?.beforeWord || this.new_data?.initTalk || '',
+        robotCode: this.new_data?.robotCode,
         userChoose: msg
       }
       userChoose(param).then(res => {
