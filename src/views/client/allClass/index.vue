@@ -227,6 +227,7 @@ export default {
   }
   .sp {
     margin-left: 300px;
+    width: 100%;
     background-color: #fff;
     .commodits {
       width: 100%;
