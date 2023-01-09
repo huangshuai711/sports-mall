@@ -103,7 +103,7 @@ export default {
       const param = {
         beforeWordKey: this.new_data?.beforeWordKey || 5,
         beforeWord: this.new_data?.beforeWord || this.new_data?.initTalk || '',
-        robotCode: this.new_data?.robotCode,
+        robotCode: this.new_data?.robotCode || '5',
         userChoose: msg
       }
       userChoose(param).then(res => {

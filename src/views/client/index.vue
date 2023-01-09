@@ -26,6 +26,7 @@
         <router-view></router-view>
       </div>
     </div>
+    <Chat></Chat>
   </div>
 </template>
 
@@ -34,9 +35,10 @@ import HeadNav from './components/headNav'
 import SideMenu from './components/sideMenu'
 import TopMenu from './components/topMenu'
 import Home from './components/home'
+import Chat from '@/components/chat'
 export default {
   name: 'home',
-  components: { SideMenu, HeadNav, Home, TopMenu },
+  components: { SideMenu, HeadNav, Home, TopMenu, Chat },
   data() {
     return {}
   },
