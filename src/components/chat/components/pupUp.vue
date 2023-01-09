@@ -50,7 +50,7 @@ export default {
     async getListArr() {
       try {
         const res = await robotDtoRecord().then(res => res.data)
-        if (res?.length) {
+        if (res?.length && res[res.length - 1].isEnd == 0) {
           const list = []
           res.forEach(item => {
             list.push(this.setRobotDia(item.createTime, item.beforeWord))
