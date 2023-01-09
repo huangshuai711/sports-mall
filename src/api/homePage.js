@@ -23,3 +23,10 @@ export function listSecondProductNumDto() {
     method: 'get'
   })
 }
+// 获取总数
+export function getDataAnalyse() {
+  return request({
+    url: `/api/dataAnalyse/home`,
+    method: 'get'
+  })
+}

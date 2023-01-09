@@ -29,7 +29,11 @@ export default {
       iconKey: {
         home: { type: 'img', value: require('@/assets/icon/home.png') },
         collYes: { type: 'img', value: require('@/assets/icon/collect-yes.png') },
-        collNo: { type: 'img', value: require('@/assets/icon/collect-no.png') }
+        collNo: { type: 'img', value: require('@/assets/icon/collect-no.png') },
+        user: { type: 'img', value: require('@/assets/icon/用户.png') },
+        colle: { type: 'img', value: require('@/assets/icon/收藏.png') },
+        commodity: { type: 'img', value: require('@/assets/icon/商品.png') },
+        shopCart: { type: 'img', value: require('@/assets/icon/购物车.png') }
       }
     }
   },
