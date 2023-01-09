@@ -2,7 +2,7 @@
   <div class="box">
     <el-carousel trigger="click">
       <el-carousel-item v-for="item in imgArr" :key="item.id">
-        <div class="img-box">
+        <div class="img-box" @click="jump">
           <img :src="item.filePath" alt="" />
         </div>
       </el-carousel-item>
@@ -28,6 +28,9 @@ export default {
         const res = await getPictures()
         this.imgArr = res.data
       } catch (error) {}
+    },
+    jump() {
+      this.$router.push('/client/allClass')
     }
   }
 }
@@ -48,6 +51,7 @@ export default {
 ::v-deep .el-carousel {
   position: relative;
   .img-box {
+    cursor: pointer;
     position: absolute;
     height: 100%;
     width: 100%;

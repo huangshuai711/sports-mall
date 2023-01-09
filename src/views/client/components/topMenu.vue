@@ -1,6 +1,6 @@
 <template>
   <div class="type-menu">
-    <el-tabs type="border-card" @tab-click="jump">
+    <el-tabs type="border-card" v-model="activeName">
       <el-tab-pane label="全部商品分类" name="allClass"></el-tab-pane>
       <el-tab-pane label="首页" name="home"></el-tab-pane>
       <el-tab-pane label="我的购物车" name="shoppingCart"></el-tab-pane>
@@ -14,7 +14,17 @@ export default {
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    activeName: {
+      get() {
+        return this.$route.name
+      },
+      set(val) {
+        this.$router.push({ name: val })
+      }
+    }
+  },
+  watch: {},
   created() {},
   methods: {
     jump(tab) {
