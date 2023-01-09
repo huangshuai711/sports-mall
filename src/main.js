@@ -11,7 +11,9 @@ import bootstrap from './config/bootstrap'
 import './assets/common.scss'
 import dict from './dict'
 import { reImgUrl } from './utils/method'
+import JwChat from 'jwchat'
 
+Vue.use(JwChat)
 Vue.use(ElementUI)
 
 Vue.component('Icon', Icons)

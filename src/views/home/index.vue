@@ -16,6 +16,7 @@
         </div>
       </div>
     </div>
+    <Chat></Chat>
   </div>
 </template>
 
@@ -23,9 +24,10 @@
 import HeadNav from './components/headNav'
 import SideMenu from './components/sideMenu'
 import Tab from './components/tab'
+import Chat from '@/components/chat'
 export default {
   name: 'home',
-  components: { SideMenu, Tab, HeadNav },
+  components: { SideMenu, Tab, HeadNav, Chat },
   data() {
     return {}
   },

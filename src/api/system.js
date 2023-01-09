@@ -77,3 +77,26 @@ export function getTypeTree(parameter) {
     data: parameter
   })
 }
+// 机器人初始对话
+export function initTalk() {
+  return request({
+    url: `/api/robots/initTalk`,
+    method: 'GET'
+  })
+}
+// 对话记录
+export function robotDtoRecord(parameter) {
+  return request({
+    url: `/api/robots/robotDtoRecord`,
+    method: 'GET',
+    data: parameter
+  })
+}
+// 用户输入
+export function userChoose(parameter) {
+  return request({
+    url: `/api/robots/userChoose`,
+    method: 'POST',
+    data: parameter
+  })
+}
