@@ -6,6 +6,7 @@
       @enter="bindEnter"
       v-model="inputMsg"
       :showRightBox="false"
+      :toolConfig="toolConfig"
       scrollType="scroll"
       @clickTalk="talkEvent"
     >
@@ -29,6 +30,14 @@ export default {
           show: true,
           tip: '加载更多',
           callback: this.bindLoadHistory
+        }
+      },
+      toolConfig: {
+        // 现在只配置了 ["file", "video", "img", "hongbao", "more", "history"]
+        show: [], // 二级数组中放自定义名称
+        showEmoji: true, // 是否显示表情图标
+        callback: function toolEvent(type, plyload) {
+          console.log('tools', type, plyload)
         }
       },
       new_data: null

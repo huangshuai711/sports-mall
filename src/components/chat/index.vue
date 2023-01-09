@@ -50,14 +50,33 @@ export default {
   box-shadow: 0 3px 12px rgb(98 107 181 / 25%);
 }
 ::v-deep .el-dialog__wrapper {
-  width: 810px;
-  height: 660px;
+  width: 750px;
+  height: 570px;
   position: fixed;
+  overflow: hidden;
   top: auto;
   left: auto;
   bottom: 150px !important;
   right: 30px !important;
   overflow: auto;
   margin: 0;
+}
+::v-deep .el-dialog__body {
+  padding: 0;
+}
+::v-deep .el-dialog__header {
+  padding: 0;
+}
+::v-deep .el-dialog__headerbtn {
+  z-index: 999;
+  i {
+    color: #fff;
+  }
+  i:hover {
+    color: #fff;
+  }
+}
+::v-deep .el-dialog.is-fullscreen {
+  overflow: hidden;
 }
 </style>
