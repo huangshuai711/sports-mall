@@ -50,6 +50,7 @@ export default {
   box-shadow: 0 3px 12px rgb(98 107 181 / 25%);
 }
 ::v-deep .el-dialog__wrapper {
+  box-shadow: 0 3px 12px rgb(98 107 181 / 25%);
   width: 750px;
   height: 570px;
   position: fixed;

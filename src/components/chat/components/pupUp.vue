@@ -55,6 +55,7 @@ export default {
     async getListArr() {
       try {
         const res = await robotDtoRecord().then(res => res.data)
+        res.reverse()
         if (res?.length && res[res.length - 1].isEnd == 0) {
           const list = []
           res.forEach(item => {
