@@ -3,7 +3,7 @@
     <div class="title">商品分类：</div>
     <el-menu class="el-menu-vertical-demo" :collapse="true" @select="select">
       <el-submenu :index="item.id" v-for="item in treeData" :key="item.id">
-        <template slot="title">{{ item.name }} </template>
+        <div slot="title" @click="jump(item)">{{ item.name }}</div>
         <el-menu-item :index="itemc.id" v-for="itemc in item.children" :key="itemc.id">{{
           itemc.name
         }}</el-menu-item>
@@ -34,9 +34,11 @@ export default {
         this.treeData = await getSortTree().then(res => res.data)
       } catch (error) {}
     },
+    jump(item) {
+      this.$router.push({ path: '/client/allClass', query: { productTypeId: item.id } })
+    },
     select(index) {
       this.$router.push({ path: '/client/allClass', query: { productTypeId: index } })
-      this.$store.commit('SET_PRODUCTTYPE', index)
     }
   }
 }
