@@ -14,15 +14,6 @@
 </template>
 
 <script>
-const listData = [
-  {
-    date: '2020/05/20 23:19:07',
-    text: { text: '起床不' },
-    mine: false,
-    name: '机器人客服',
-    img: 'https://img1.baidu.com/it/u=2109725846,3376113789&fm=26&fmt=auto&gp=0.jpg'
-  }
-]
 import { initTalk, robotDtoRecord, userChoose } from '@/api/system'
 export default {
   components: {},
@@ -31,7 +22,7 @@ export default {
       inputMsg: '',
       list: [],
       config: {
-        img: 'https://img1.baidu.com/it/u=2109725846,3376113789&fm=26&fmt=auto&gp=0.jpg',
+        img: require('@/assets/img/robot.jpg'),
         name: '机器人客服',
         callback: this.bindCover,
         historyConfig: {
@@ -41,6 +32,11 @@ export default {
         }
       },
       new_data: null
+    }
+  },
+  computed: {
+    userInfo() {
+      return this.$store.getters.getUserInfo
     }
   },
   mounted() {
@@ -71,7 +67,7 @@ export default {
         text: { text: text || '' },
         mine: false,
         name: '机器人客服',
-        img: 'https://img1.baidu.com/it/u=2109725846,3376113789&fm=26&fmt=auto&gp=0.jpg'
+        img: require('@/assets/img/robot.jpg')
       }
       return dialogue
     },
@@ -80,23 +76,13 @@ export default {
         date: date || '',
         text: { text: text || '' },
         mine: true,
-        name: '我',
-        img: 'https://img1.baidu.com/it/u=2109725846,3376113789&fm=26&fmt=auto&gp=0.jpg'
+        name: this.userInfo?.username,
+        img: this.userInfo?.avatar
       }
       return dialogue
     },
     bindLoadHistory() {
-      const history = new Array(3).fill().map((i, j) => {
-        return {
-          date: '2020/05/20 23:19:07',
-          text: { text: j + new Date() },
-          mine: false,
-          name: 'JwChat',
-          img: 'https://img1.baidu.com/it/u=31094377,222380373&fm=26&fmt=auto&gp=0.jpg'
-        }
-      })
-      let list = history.concat(this.list)
-      this.list = list
+      this.list = this.list
     },
     talkEvent(play) {
       console.log(play)
@@ -120,18 +106,7 @@ export default {
   }
 }
 </script>
-<style scoped>
-.rightSlot {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  flex-direction: column;
-}
-</style>
-<style>
-.active {
-  color: red;
-}
+<style lang="scss" scoped>
 .jwchat__body {
   height: 100%;
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -140,4 +115,13 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+::v-deep .web__main-user {
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
 </style>
+<style scoped></style>
+<style></style>
