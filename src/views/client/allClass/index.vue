@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-      <el-breadcrumb-item :to="{ path: '/client/home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/client/allClass' }">全部</el-breadcrumb-item>
       <el-breadcrumb-item
         v-for="item in nav"
         :key="item.nav"
@@ -138,7 +138,9 @@ export default {
           } else {
             this.nowArr = tree
           }
-          this.nav = nav
+          console.log('nav', this.nav, this.nav.slice(0, ind + 1))
+          this.nav = this.nav.slice(0, ind + 1)
+          nav
         } else {
           if (item.children?.length) {
             this.each(item.children, ind + 1)
