@@ -11,13 +11,16 @@
       @clickTalk="talkEvent"
     >
     </JwChat-index>
+    <OrderDetails ref="detail" v-model="detailsShow"></OrderDetails>
   </div>
 </template>
 
 <script>
 import { initTalk, robotDtoRecord, userChoose } from '@/api/system'
+import OrderDetails from '@/views/order/components/details.vue'
+import { getOrderDetail } from '@/api/order'
 export default {
-  components: {},
+  components: { OrderDetails },
   data() {
     return {
       inputMsg: '',
@@ -40,7 +43,8 @@ export default {
           console.log('tools', type, plyload)
         }
       },
-      new_data: null
+      new_data: null,
+      detailsShow: false
     }
   },
   computed: {
@@ -108,8 +112,10 @@ export default {
             this.$set(keyVal, item.split('=')[0], item.split('=')[1])
           })
         // && keyVal.type == 'orderDetails'
-        if (keyVal.type) {
+        if (keyVal.type && keyVal.type == 'details') {
           return `<span class="link" type="${keyVal.type}" id="${keyVal.id}">查看订单详情<span>`
+        } else {
+          return `<a class="link" href="${text}" target="_blank">${text}<a>`
         }
       } else {
         return text
@@ -137,8 +143,18 @@ export default {
         while ((match = re.exec(play.data))) {
           params[match[1]] = JSON.parse(match[2])
         }
-        console.log('params', params)
+        this.goOrderDetails(params)
       }
+    },
+    async goOrderDetails(row) {
+      try {
+        const info = await getOrderDetail(row.id).then(res => res.data)
+        const detailsInfo = { ...info, ...info.orderProduct }
+        detailsInfo.sysFilePath = detailsInfo?.sysFile?.filePath
+        detailsInfo.sysFileListPath = detailsInfo?.sysFileList?.map(item => item.filePath)
+        this.$refs.detail.data = detailsInfo
+        this.detailsShow = true
+      } catch (error) {}
     },
     bindEnter(str) {
       const msg = this.inputMsg

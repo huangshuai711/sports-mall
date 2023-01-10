@@ -6,6 +6,7 @@
     width="600px"
     :before-close="close"
     center
+    append-to-body
     ><Exhibition ref="exhibition" :formArr="formArr" :data="data"></Exhibition>
   </el-dialog>
 </template>
