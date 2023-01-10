@@ -1,6 +1,6 @@
 <template>
   <div class="box" v-if="data">
-    <Comment ref="comment" v-model="commentShow" :id="id"></Comment>
+    <!-- <Comment ref="comment" v-model="commentShow" :id="id"></Comment> -->
     <OrderNum ref="orderNum" v-model="orderNumShow" :id="id"></OrderNum>
     <div class="info-box">
       <div class="spzt"><img :src="data.sysFilePath" alt="" /></div>
@@ -52,13 +52,7 @@
                 </el-image>
               </div>
             </div>
-            <div v-if="activeTab == 'pl'">
-              <Table
-                :tableRow="tableRow"
-                :tableData="data?.commentDtoList"
-                class="flex-fill"
-              ></Table>
-            </div>
+            <Comment v-if="activeTab == 'pl'" :comments="data?.commentDtoList"></Comment>
           </div>
         </div>
       </div>
@@ -77,38 +71,35 @@ export default {
   data() {
     return {
       tableRow: [
-        { key: 'productName', label: '评论人' },
-        { key: 'sysFilePath', label: '评论内容' },
-        { key: 'updateTime', label: '评论时间' }
+        { key: 'username', label: '评论人' },
+        { key: 'commentContent', label: '评论内容' },
+        { key: 'commentDate', label: '评论时间' }
       ],
       data: null,
       commentShow: false,
       orderNumShow: false,
       num: 1,
       tjcommoditys: [],
-      activeTab: 'js'
+      activeTab: 'js',
+      id: ''
     }
   },
   watch: {},
   created() {
+    this.id = this.$route.query.id
     this.getData()
     this.gettjData()
   },
-  computed: {
-    id() {
-      return this.$route.query.id
-    }
-  },
+  computed: {},
   methods: {
     tabClick(tab) {
       console.log(tab.name)
     },
     back() {
-      this.$router.go(-1)
+      this.$router.go(this.$route.query.id ? -1 : -2)
     },
     comJump(item) {
       this.$router.push({ path: '/client/commodityDetails', query: { id: item.id } })
-      this.getData()
     },
     addShopp() {
       this.$refs.orderNum.title = '加入购物车'

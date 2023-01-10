@@ -175,7 +175,7 @@ export default {
     }
   }
   .commodity-box:hover {
-    box-shadow: 0 3px 12px rgb(98 107 181 / 25%);
+    box-shadow: 0 0 16px rgb(0 0 0 /25%);
   }
 }
 </style>

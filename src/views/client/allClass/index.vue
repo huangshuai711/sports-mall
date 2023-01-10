@@ -119,6 +119,7 @@ export default {
       } catch (error) {}
     },
     goDetail(item) {
+      console.log('item.id', item.id)
       this.$router.push({ path: '/client/commodityDetails', query: { id: item.id } })
     },
     async gettjData() {
@@ -277,6 +278,9 @@ export default {
           text-align: right;
         }
       }
+    }
+    .commodity-box:hover {
+      box-shadow: 0 0 16px rgb(0 0 0 /25%);
     }
   }
 }
