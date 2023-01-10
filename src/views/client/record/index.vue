@@ -111,7 +111,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
-  padding: 20px;
   height: 100%;
   background-color: #fff;
 }
