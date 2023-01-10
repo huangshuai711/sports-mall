@@ -1,7 +1,7 @@
 <template>
   <div class="commodity-info flex-col-box">
     <Table :tableRow="tableRow" :tableData="tableData" :loading="loading" class="flex-fill"></Table>
-    <Pagination ref="page" :total="total" class="flex-bot"></Pagination>
+    <Pagination ref="page" :total="total" class="flex-bot" @refresh="getData"></Pagination>
   </div>
 </template>
 

@@ -20,7 +20,7 @@
           :min="0"
         ></el-input-number> </template
     ></Table>
-    <Pagination ref="page" :total="total" class="flex-bot"></Pagination>
+    <Pagination ref="page" :total="total" class="flex-bot" @refresh="getData"></Pagination>
     <Details ref="detail" v-model="detailsShow"></Details>
     <Evaluate ref="evaluate" v-model="evaluateShow" @refresh="getData"></Evaluate>
   </div>

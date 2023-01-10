@@ -1,101 +1,55 @@
 <template>
-  <div class="commodity-info flex-col-box">
-    <SearchFrom
-      ref="search"
-      :formData="formData"
-      :btnArr="btnArr"
-      @btnClick="operation"
-    ></SearchFrom>
-    <Table
-      :tableRow="tableRow"
-      :tableData="tableData"
-      :loading="loading"
-      @operateEvent="operateEvent"
-      class="flex-fill"
-    ></Table>
-    <Pagination ref="page" :total="total" class="flex-bot"></Pagination>
-    <Details ref="detail" v-model="detailsShow"></Details>
-    <!-- <Edit ref="edit" v-model="editShow" @refresh="getData"></Edit> -->
+  <div class="commodits">
+    <div class="commodity-info flex-col-box">
+      <div class="commodits">
+        <div
+          class="commodity-box"
+          v-for="item in commoditys"
+          :key="item.id"
+          @click="goDetail(item)"
+        >
+          <div class="pic"><img :src="item.sysFile?.filePath" alt="" /></div>
+          <div class="info info1">
+            <div class="name ellip">{{ item.productName }}</div>
+            <span @click.stop="collect(item)">
+              <Icon
+                class="icon"
+                :type="item.isComment == 1 ? 'collYes' : 'collNo'"
+                width="30px"
+                height="30px"
+              ></Icon>
+            </span>
+          </div>
+          <div class="info info2">
+            <div class="price">
+              {{ item.promotionPrice }} <span class="orPrice">{{ item.originalPrice }}</span>
+            </div>
+            <div class="pps ellip">{{ item.brandingBusiness }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <Pagination ref="page" :total="total" class="flex-bot" @refresh="getData"></Pagination>
   </div>
 </template>
 
 <script>
-import SearchFrom from '@/components/searchFrom'
-import Table from '@/components/table'
 import Pagination from '@/components/pagination'
-import { getRecirds, removeViewRecord } from '@/api/client'
-import Details from './components/details.vue'
-// import Edit from './components/edit.vue'
+import { getRecirds, removeViewRecord, switchCollectState } from '@/api/client'
 export default {
   name: 'commodity-info',
-  // Details, Edit
-  components: { SearchFrom, Table, Pagination, Details },
+  components: { Pagination },
   data() {
     return {
-      formData: [
-        {
-          type: 'input',
-          name: '商品名称',
-          key: 'productName',
-          value: ''
-        }
-      ],
-      btnArr: [{ key: 'query', name: '查询' }],
-      tableRow: [
-        { key: 'productName', label: '商品名称' },
-        { key: 'sysFilePath', label: '商品主图', type: 'imger' },
-        { key: 'updateTime', label: '浏览时间' },
-        {
-          key: 'operate',
-          label: '操作',
-          btn: [
-            { key: 'details', name: '详情' },
-            { key: 'delete', name: '删除' }
-          ]
-        }
-      ],
-      tableData: [],
+      commoditys: [],
       total: 0,
-      queryParam: {},
-      loading: false,
-      detailsShow: false,
-      editShow: false
+      queryParam: {}
     }
   },
   mounted() {
     this.getData()
   },
   methods: {
-    operation(key) {
-      if (key == 'query') {
-        this.query()
-      }
-    },
-    query() {
-      this.queryParam = this.$refs.search.getValue()
-      this.$refs.page.resetPageNum()
-      this.getData()
-    },
-    operateEvent(data) {
-      if (data.key == 'details') {
-        this.goDetails(data.row)
-      } else if (data.key == 'delete') {
-        this.delete(data.row)
-      }
-    },
-    dataHandel(row) {
-      const newRow = JSON.parse(JSON.stringify(row))
-      newRow.sysFilePath = newRow.sysFile.filePath
-      newRow.sysFileListPath = []
-      newRow.sysFileList?.forEach(item => {
-        newRow.sysFileListPath.push(item.filePath)
-      })
-      return newRow
-    },
-    goDetails(row) {
-      this.$refs.detail.data = this.dataHandel(row)
-      this.detailsShow = true
-    },
     delete(row) {
       this.$confirm(`确认删除此商品？`, '提示', {
         confirmButtonText: '确定',
@@ -116,32 +70,79 @@ export default {
       try {
         this.loading = true
         const paging = this.$refs.page.getPage()
-        const res = await getRecirds(this.queryParam, paging)
-        this.tableData = res.data.records
-        this.tableData.map(item => {
-          this.$set(item, 'sysFilePath', item.sysFile.filePath)
-        })
+        const res = await getRecirds({}, paging)
+        this.commoditys = res.data.records
         this.total = res.data.total
         this.loading = false
       } catch (error) {}
+    },
+    async collect(item) {
+      const params = {
+        id: item.productId,
+        type: item.isComment == 1 ? 2 : 1
+      }
+      try {
+        await switchCollectState(params)
+        this.getData()
+      } catch (error) {}
+    },
+    goDetail(item) {
+      this.$router.push({ path: '/client/commodityDetails', query: { id: item.productId } })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-.flex-col-box {
-  padding: 30px;
+.commodits {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  .flex-fill {
-    margin: 30px 0;
-    overflow: auto;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 20px;
+}
+.commodity-box {
+  cursor: pointer;
+  width: 200px;
+  height: 200px;
+  margin: 30px;
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  .pic {
+    width: 100%;
+    height: 130px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
-  .flex-bot {
-    margin-bottom: 30px;
+  .info {
+    padding: 5px 10px;
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
+    align-items: center;
   }
+  .info1 {
+    .name {
+      width: 180px;
+    }
+    .icon {
+      cursor: pointer;
+    }
+  }
+  .info2 {
+    .orPrice {
+      color: #fd3f31;
+      text-decoration: line-through;
+    }
+    .pps {
+      width: 100px;
+      text-align: right;
+    }
+  }
+}
+.commodity-box:hover {
+  box-shadow: 0 0 16px rgb(0 0 0 /25%);
 }
 </style>
