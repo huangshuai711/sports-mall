@@ -16,8 +16,8 @@
     </div>
     <div>
       <div ref="echart111" class="echart"></div>
-      <div ref="echart1" class="echart"></div>
-      <div ref="echart11" class="echart"></div>
+      <!-- <div ref="echart1" class="echart"></div> -->
+      <!-- <div ref="echart11" class="echart"></div> -->
     </div>
     <div>
       <div ref="echart222" class="echart"></div>
@@ -26,8 +26,8 @@
     </div>
     <div>
       <div ref="echart333" class="echart"></div>
-      <div ref="echart3" class="echart"></div>
-      <div ref="echart33" class="echart"></div>
+      <!-- <div ref="echart3" class="echart"></div> -->
+      <!-- <div ref="echart33" class="echart"></div> -->
     </div>
   </div>
 </template>
@@ -79,8 +79,8 @@ export default {
           data.push({ value: item.countNum || 0, name: item.productName || '' })
         })
         this.$nextTick(() => {
-          var myChart = echarts.init(this.$refs.echart1)
-          var myChart2 = echarts.init(this.$refs.echart11)
+          // var myChart = echarts.init(this.$refs.echart1)
+          // var myChart2 = echarts.init(this.$refs.echart11)
           var myChart3 = echarts.init(this.$refs.echart111)
           myChart3.setOption({
             title: {
@@ -320,8 +320,8 @@ export default {
           data.push({ value: item.countNumPercent || 0, name: item.productType || '' })
         })
         this.$nextTick(() => {
-          var myChart = echarts.init(this.$refs.echart3)
-          var myChart2 = echarts.init(this.$refs.echart33)
+          // var myChart = echarts.init(this.$refs.echart3)
+          // var myChart2 = echarts.init(this.$refs.echart33)
           var myChart3 = echarts.init(this.$refs.echart333)
           myChart3.setOption({
             title: {
@@ -355,76 +355,76 @@ export default {
               }
             ]
           })
-          myChart.setOption({
-            toolbox: {
-              show: true,
-              feature: {
-                saveAsImage: { show: true }
-              }
-            },
-            tooltip: {},
-            xAxis: {
-              data: names,
-              axisLabel: {
-                rotate: names.length > 3 ? 30 : 0,
-                formatter: function (value) {
-                  if (value.length > 6) {
-                    return `${value.slice(0, 6)}...`
-                  } else {
-                    return value
-                  }
-                }
-              }
-            },
-            grid: {
-              bottom: '0%',
-              containLabel: true
-            },
-            yAxis: {},
-            series: [
-              {
-                name: '销量',
-                type: 'bar',
-                data: values
-              }
-            ]
-          })
-          myChart2.setOption({
-            toolbox: {
-              show: true,
-              feature: {
-                saveAsImage: { show: true }
-              }
-            },
-            xAxis: {
-              type: 'category',
-              data: names,
-              axisLabel: {
-                rotate: names.length > 3 ? 30 : 0,
-                formatter: function (value) {
-                  if (value.length > 6) {
-                    return `${value.slice(0, 6)}...`
-                  } else {
-                    return value
-                  }
-                }
-              }
-            },
-            grid: {
-              bottom: '0%',
-              containLabel: true
-            },
-            tooltip: {},
-            yAxis: {
-              type: 'value'
-            },
-            series: [
-              {
-                data: values,
-                type: 'line'
-              }
-            ]
-          })
+          // myChart.setOption({
+          //   toolbox: {
+          //     show: true,
+          //     feature: {
+          //       saveAsImage: { show: true }
+          //     }
+          //   },
+          //   tooltip: {},
+          //   xAxis: {
+          //     data: names,
+          //     axisLabel: {
+          //       rotate: names.length > 3 ? 30 : 0,
+          //       formatter: function (value) {
+          //         if (value.length > 6) {
+          //           return `${value.slice(0, 6)}...`
+          //         } else {
+          //           return value
+          //         }
+          //       }
+          //     }
+          //   },
+          //   grid: {
+          //     bottom: '0%',
+          //     containLabel: true
+          //   },
+          //   yAxis: {},
+          //   series: [
+          //     {
+          //       name: '销量',
+          //       type: 'bar',
+          //       data: values
+          //     }
+          //   ]
+          // })
+          // myChart2.setOption({
+          //   toolbox: {
+          //     show: true,
+          //     feature: {
+          //       saveAsImage: { show: true }
+          //     }
+          //   },
+          //   xAxis: {
+          //     type: 'category',
+          //     data: names,
+          //     axisLabel: {
+          //       rotate: names.length > 3 ? 30 : 0,
+          //       formatter: function (value) {
+          //         if (value.length > 6) {
+          //           return `${value.slice(0, 6)}...`
+          //         } else {
+          //           return value
+          //         }
+          //       }
+          //     }
+          //   },
+          //   grid: {
+          //     bottom: '0%',
+          //     containLabel: true
+          //   },
+          //   tooltip: {},
+          //   yAxis: {
+          //     type: 'value'
+          //   },
+          //   series: [
+          //     {
+          //       data: values,
+          //       type: 'line'
+          //     }
+          //   ]
+          // })
         })
       } catch (error) {}
     }

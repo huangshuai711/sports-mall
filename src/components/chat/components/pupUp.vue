@@ -60,16 +60,34 @@ export default {
           const list = []
           res.forEach(item => {
             list.push(this.setRobotDia(item.createTime, item.beforeWord))
-            list.push(this.setMineDia(item.createTime, item.userChoose))
+            if(item.userChoose){
+              list.push(this.setMineDia(item.createTime, item.userChoose))
+            }
           })
           this.new_data = res[res.length - 1]
           this.list = list
         } else {
-          const record = await initTalk().then(res => res.data)
-          this.new_data = record
-          this.list = [this.setRobotDia(record.createTime, record.initTalk)]
+          this.setRecord()
+          await initTalk()
+          this.setRecord()
+          // this.new_data = record
+          // this.list = [this.setRobotDia(record.createTime, record.initTalk)]
         }
       } catch (error) {}
+    },
+    async setRecord(){
+      const res = await robotDtoRecord().then(res => res.data)
+          res.reverse()
+          const list = []
+          res.forEach(item => {
+            list.push(this.setRobotDia(item.createTime, item.beforeWord))
+            if(item.userChoose){
+              list.push(this.setMineDia(item.createTime, item.userChoose))
+            }
+          })
+          this.new_data = res[res.length - 1]
+          this.list = list
+          return
     },
     setRobotDia(date, text) {
       const dialogue = {
@@ -101,6 +119,7 @@ export default {
       const msg = this.inputMsg
       if (!msg) return
       const param = {
+        id:this.new_data?.id,
         beforeWordKey: this.new_data?.beforeWordKey || 5,
         beforeWord: this.new_data?.beforeWord || this.new_data?.initTalk || '',
         robotCode: this.new_data?.robotCode || '5',
