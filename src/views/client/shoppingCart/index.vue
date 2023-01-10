@@ -30,7 +30,12 @@
 import SearchFrom from '@/components/searchFrom'
 import Table from '@/components/table'
 import Pagination from '@/components/pagination'
-import { getOrderArr, paysPay, getShoppingCartArr, gchangeShoppingCartNum } from '@/api/client'
+import {
+  paysPay,
+  getShoppingCartArr,
+  gchangeShoppingCartNum,
+  removeShoppingCart
+} from '@/api/client'
 import { changeOrderState } from '@/api/order'
 import Details from './components/details.vue'
 import Evaluate from './components/evaluate.vue'
@@ -102,8 +107,8 @@ export default {
       this.getData()
     },
     operateEvent(data) {
-      if (data.key == 'details') {
-        this.goDetails(data.row)
+      if (data.key == 'del') {
+        this.del(data.row)
       } else if (data.key == 'delivery') {
         this.delivery(data.row)
       }
@@ -113,12 +118,23 @@ export default {
         this.getData()
       })
     },
-    async goDetails(row) {
-      try {
-        const detailsInfo = row
-        this.$refs.detail.data = { ...detailsInfo, ...detailsInfo?.orderProduct }
-        this.detailsShow = true
-      } catch (error) {}
+    async del(row) {
+      this.$confirm(`确认删除？`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          removeShoppingCart(row.id).then(res => {
+            if (res.code == 200) {
+              this.$message.success(`删除成功`)
+              this.getData()
+            } else {
+              this.$message.error(res.msg)
+            }
+          })
+        })
+        .catch(() => {})
     },
     delivery(row) {
       if (row.state == 2 || row.state == 5) {

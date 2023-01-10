@@ -122,3 +122,11 @@ export function gchangeShoppingCartNum(parameter) {
     method: 'post'
   })
 }
+
+// 删除浏览记录
+export function removeShoppingCart(id) {
+  return request({
+    url: `/api/orders/del/${id}`,
+    method: 'post'
+  })
+}
