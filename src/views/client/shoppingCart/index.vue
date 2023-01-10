@@ -158,7 +158,7 @@ export default {
 
         this.purchases = []
         this.tableData.forEach(item => {
-          this.purchases.push({ orderId: item.id, num: item.orderProduct?.num })
+          this.purchases.push({ orderId: item.id, num: item.num })
         })
         this.total = res.data.total
         this.loading = false
