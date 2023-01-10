@@ -80,17 +80,28 @@ export default {
       orderNumShow: false,
       num: 1,
       tjcommoditys: [],
-      activeTab: 'js',
-      id: ''
+      activeTab: 'js'
+      // id: ''
     }
   },
-  watch: {},
+  watch: {
+    id(val) {
+      if (val) {
+        this.getData()
+        this.gettjData()
+      }
+    }
+  },
   created() {
-    this.id = this.$route.query.id
+    // this.id = this.$route.query.id
     this.getData()
     this.gettjData()
   },
-  computed: {},
+  computed: {
+    id() {
+      return this.$route.query.id
+    }
+  },
   methods: {
     tabClick(tab) {
       console.log(tab.name)

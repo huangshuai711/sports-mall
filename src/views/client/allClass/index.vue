@@ -119,7 +119,6 @@ export default {
       } catch (error) {}
     },
     goDetail(item) {
-      console.log('item.id', item.id)
       this.$router.push({ path: '/client/commodityDetails', query: { id: item.id } })
     },
     async gettjData() {
