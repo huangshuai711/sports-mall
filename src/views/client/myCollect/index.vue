@@ -17,7 +17,7 @@ export default {
     return {
       tableRow: [
         { key: 'productName', label: '商品名称' },
-        { key: 'sysFilePath', label: '商品主图', type: 'imger' },
+        { key: 'filePath', label: '商品主图', type: 'imger' },
         { key: 'updateTime', label: '收藏时间' }
       ],
       tableData: [],
