@@ -105,6 +105,7 @@ export default {
         val: this.searchValue,
         trigger: !this.$store.getters?.getSearchText?.trigger
       })
+      this.searchValue = ''
     },
     info() {
       this.$refs.detail.data = this.userInfo

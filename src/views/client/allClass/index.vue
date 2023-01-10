@@ -10,7 +10,10 @@
       >
     </el-breadcrumb>
     <div class="menu">
-      <div class="lable">分类：</div>
+      <div class="lable">
+        分类：<span class="seach-jg" v-if="searchValue">搜索结果：”{{ searchValue }}“</span>
+      </div>
+
       <el-tabs v-model="active" @tab-click="handleClick" class="tab">
         <el-tab-pane
           v-for="item in nowArr"
@@ -77,12 +80,25 @@ export default {
   computed: {
     productTypeId() {
       return this.$route.query.productTypeId || ''
+    },
+    searchValue() {
+      return this.$store.getters?.getSearchText?.val || ''
+    },
+    searchTrigger() {
+      return this.$store.getters?.getSearchText?.trigger || false
     }
   },
   watch: {
     productTypeId(val) {
       this.active = val
+      this.$store.commit('SET_SEARCHTEXT', {
+        val: '',
+        trigger: this.$store.getters?.getSearchText?.trigger
+      })
+      this.getData()
       this.getSpTypeTree()
+    },
+    searchTrigger(val) {
       this.getData()
     }
   },
@@ -114,7 +130,9 @@ export default {
     },
     async getData() {
       try {
-        const param = this.productTypeId ? { productTypeId: this.productTypeId } : {}
+        const param = {}
+        this.productTypeId && (param.productTypeId = this.productTypeId)
+        param.productName = this.searchValue
         this.commoditys = await getCommoditys(param).then(res => res.data)
       } catch (error) {}
     },
@@ -179,6 +197,10 @@ export default {
     background-color: rgb(236, 235, 236);
     padding: 0 20px;
     width: 250px;
+    .seach-jg {
+      margin-left: 10px;
+      color: rgb(100, 168, 239);
+    }
   }
   .tab {
     background-color: #fff;

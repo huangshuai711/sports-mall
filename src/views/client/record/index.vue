@@ -28,8 +28,8 @@
           </div>
         </div>
       </div>
+      <Pagination ref="page" :total="total" class="flex-bot" @refresh="getData"></Pagination>
     </div>
-    <Pagination ref="page" :total="total" class="flex-bot" @refresh="getData"></Pagination>
   </div>
 </template>
 
@@ -48,6 +48,19 @@ export default {
   },
   mounted() {
     this.getData()
+  },
+  computed: {
+    searchValue() {
+      return this.$store.getters?.getSearchText?.val || ''
+    },
+    searchTrigger() {
+      return this.$store.getters?.getSearchText?.trigger || false
+    }
+  },
+  watch: {
+    searchTrigger(val) {
+      this.getData()
+    }
   },
   methods: {
     delete(row) {
@@ -70,7 +83,7 @@ export default {
       try {
         this.loading = true
         const paging = this.$refs.page.getPage()
-        const res = await getRecirds({}, paging)
+        const res = await getRecirds({ productName: this.searchValue }, paging)
         this.commoditys = res.data.records
         this.total = res.data.total
         this.loading = false
@@ -99,6 +112,8 @@ export default {
   flex-wrap: wrap;
   box-sizing: border-box;
   padding: 20px;
+  height: 100%;
+  background-color: #fff;
 }
 .commodity-box {
   cursor: pointer;
@@ -144,5 +159,19 @@ export default {
 }
 .commodity-box:hover {
   box-shadow: 0 0 16px rgb(0 0 0 /25%);
+}
+.flex-col-box {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .flex-fill {
+    margin: 30px 0;
+  }
+  .flex-bot {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: right;
+  }
 }
 </style>
