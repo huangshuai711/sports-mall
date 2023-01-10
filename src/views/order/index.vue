@@ -119,7 +119,6 @@ export default {
       } catch (error) {}
     },
     operateEvent(data) {
-      console.log(data)
       if (data.key == 'details') {
         this.goDetails(data.row)
       } else if (data.key == 'delivery') {
@@ -127,11 +126,14 @@ export default {
       }
     },
     async goDetails(row) {
-      try {
-        const detailsInfo = await getOrderDetail(row.id).then(res => res.data)
-        this.$refs.detail.data = { ...detailsInfo, ...detailsInfo?.orderProduct }
-        this.detailsShow = true
-      } catch (error) {}
+      // try {
+      const info = await getOrderDetail(row.id).then(res => res.data)
+      const detailsInfo = { ...info, ...info.orderProduct }
+      detailsInfo.sysFilePath = detailsInfo?.sysFile?.filePath
+      detailsInfo.sysFileListPath = detailsInfo?.sysFileList?.map(item => item.filePath)
+      this.$refs.detail.data = detailsInfo
+      this.detailsShow = true
+      // } catch (error) {}
     },
     delivery(row) {
       this.$confirm(`确认发货？`, '提示', {
