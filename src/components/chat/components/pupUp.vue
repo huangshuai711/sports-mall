@@ -60,49 +60,65 @@ export default {
           const list = []
           res.forEach(item => {
             list.push(this.setRobotDia(item.createTime, item.beforeWord))
-            if(item.userChoose){
+            if (item.userChoose) {
               list.push(this.setMineDia(item.createTime, item.userChoose))
             }
           })
           this.new_data = res[res.length - 1]
           this.list = list
         } else {
-          this.setRecord()
           await initTalk()
           this.setRecord()
-          // this.new_data = record
-          // this.list = [this.setRobotDia(record.createTime, record.initTalk)]
         }
       } catch (error) {}
     },
-    async setRecord(){
+    async setRecord() {
       const res = await robotDtoRecord().then(res => res.data)
-          res.reverse()
-          const list = []
-          res.forEach(item => {
-            list.push(this.setRobotDia(item.createTime, item.beforeWord))
-            if(item.userChoose){
-              list.push(this.setMineDia(item.createTime, item.userChoose))
-            }
-          })
-          this.new_data = res[res.length - 1]
-          this.list = list
-          return
+      res.reverse()
+      const list = []
+      res.forEach(item => {
+        list.push(this.setRobotDia(item.createTime, item.beforeWord))
+        if (item.userChoose) {
+          list.push(this.setMineDia(item.createTime, item.userChoose))
+        }
+      })
+      this.new_data = res[res.length - 1]
+      this.list = list
+      return
     },
     setRobotDia(date, text) {
       const dialogue = {
         date: date || '',
-        text: { text: text || '' },
+        text: { text: this.handleText(text) },
         mine: false,
         name: '机器人客服',
         img: require('@/assets/img/robot.jpg')
       }
       return dialogue
     },
+    handleText(text) {
+      if (!text) {
+        return ''
+      } else if (text.substr(0, 4) == 'http') {
+        const keyVal = {}
+        text
+          .split('?')[1]
+          ?.split('&')
+          ?.forEach(item => {
+            this.$set(keyVal, item.split('=')[0], item.split('=')[1])
+          })
+        // && keyVal.type == 'orderDetails'
+        if (keyVal.type) {
+          return `<span class="link" type="${keyVal.type}" id="${keyVal.id}">查看订单详情<span>`
+        }
+      } else {
+        return text
+      }
+    },
     setMineDia(date, text) {
       const dialogue = {
         date: date || '',
-        text: { text: text || '' },
+        text: { text: this.handleText(text) },
         mine: true,
         name: this.userInfo?.username,
         img: this.userInfo?.avatar
@@ -113,13 +129,22 @@ export default {
       this.list = this.list
     },
     talkEvent(play) {
-      console.log(play)
+      console.log(play, 'play')
+      if (play.data.indexOf('details') != -1) {
+        const params = {}
+        var re = /([^ ]+)=\s*(['"]?[^ '"]+['"]?)/g
+        let match = []
+        while ((match = re.exec(play.data))) {
+          params[match[1]] = JSON.parse(match[2])
+        }
+        console.log('params', params)
+      }
     },
     bindEnter(str) {
       const msg = this.inputMsg
       if (!msg) return
       const param = {
-        id:this.new_data?.id,
+        id: this.new_data?.id,
         beforeWordKey: this.new_data?.beforeWordKey || 5,
         beforeWord: this.new_data?.beforeWord || this.new_data?.initTalk || '',
         robotCode: this.new_data?.robotCode || '5',
@@ -150,6 +175,10 @@ export default {
     height: 100%;
     object-fit: cover;
   }
+}
+::v-deep .link {
+  cursor: pointer;
+  color: rgb(64, 158, 255) !important;
 }
 </style>
 <style scoped></style>

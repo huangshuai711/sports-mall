@@ -24,7 +24,7 @@ import SearchFrom from '@/components/searchFrom'
 import Table from '@/components/table'
 import Pagination from '@/components/pagination'
 import { getOrderArr, paysPay } from '@/api/client'
-import { changeOrderState } from '@/api/order'
+import { changeOrderState, getOrderDetail } from '@/api/order'
 import Details from './components/details.vue'
 import Evaluate from './components/evaluate.vue'
 export default {
@@ -89,8 +89,11 @@ export default {
     },
     async goDetails(row) {
       try {
-        const detailsInfo = row
-        this.$refs.detail.data = { ...detailsInfo, ...detailsInfo?.orderProduct }
+        const info = await getOrderDetail(row.id).then(res => res.data)
+        const detailsInfo = { ...info, ...info.orderProduct }
+        detailsInfo.sysFilePath = detailsInfo?.sysFile?.filePath
+        detailsInfo.sysFileListPath = detailsInfo?.sysFileList?.map(item => item.filePath)
+        this.$refs.detail.data = detailsInfo
         this.detailsShow = true
       } catch (error) {}
     },

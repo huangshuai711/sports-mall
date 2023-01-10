@@ -29,8 +29,8 @@ export default {
       formArr: [
         { type: 'text', label: '订单编号', prop: 'orderNum' },
         { type: 'text', label: '商品名称', prop: 'productName' },
-        { type: 'img', label: '商品主图', prop: 'sysFile', url: 'filePath' },
-        { type: 'imgs', label: '商品展示图', prop: 'sysFileList', url: 'filePath' },
+        { type: 'img', label: '商品主图', prop: 'sysFilePath' },
+        { type: 'imgs', label: '商品展示图', prop: 'sysFileListPath' },
         { type: 'text', label: '商品分类', prop: 'productType' },
         { type: 'text', label: '订单总价', prop: 'moneyTotal' },
         { type: 'text', label: '优惠后总价', prop: 'saleMoneyTotal' },
