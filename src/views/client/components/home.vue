@@ -68,15 +68,12 @@ export default {
     },
     searchTrigger() {
       return this.$store.getters?.getSearchText?.trigger || false
-    },
-    refresh() {
-      const { searchTrigger, name } = this
-      return { searchTrigger, name }
     }
   },
   watch: {
-    refresh(val) {
+    searchTrigger(val) {
       this.getData()
+      this.getNewData()
     }
   },
   created() {
@@ -86,12 +83,16 @@ export default {
   methods: {
     async getData() {
       try {
-        this.commoditys = await getTjCommoditys({}).then(res => res.data)
+        this.commoditys = await getTjCommoditys({ productName: this.searchValue }).then(
+          res => res.data
+        )
       } catch (error) {}
     },
     async getNewData() {
       try {
-        this.newCommoditys = await getNewCommoditys({}).then(res => res.data)
+        this.newCommoditys = await getNewCommoditys({ productName: this.searchValue }).then(
+          res => res.data
+        )
       } catch (error) {}
     },
     async collect(item) {

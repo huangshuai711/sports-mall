@@ -91,6 +91,11 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  // 清空搜索条件
+  store.commit('SET_SEARCHTEXT', {
+    val: '',
+    trigger: store.getters?.getSearchText?.trigger
+  })
   // 获取token
   let token = storage.get(ACCESS_TOKEN)
   const isClient = to.path.indexOf('/client/') != -1
