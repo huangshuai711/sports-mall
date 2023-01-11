@@ -55,6 +55,8 @@ export default {
       btnArr: [{ key: 'query', name: '查询' }],
       tableRow: [
         { key: 'orderNum', label: '订单编号' },
+        { key: 'productName', label: '商品名称' },
+        { key: 'filePath', label: '商品主图', type: 'imger' },
         { key: 'createTime', label: '下单时间' },
         { key: 'saleMoneyTotal', label: '价格' },
         { key: 'num', label: '数量', type: 'slot' },
