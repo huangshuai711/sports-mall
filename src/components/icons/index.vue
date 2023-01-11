@@ -33,7 +33,8 @@ export default {
         user: { type: 'img', value: require('@/assets/icon/用户.png') },
         colle: { type: 'img', value: require('@/assets/icon/收藏.png') },
         commodity: { type: 'img', value: require('@/assets/icon/商品.png') },
-        shopCart: { type: 'img', value: require('@/assets/icon/购物车.png') }
+        shopCart: { type: 'img', value: require('@/assets/icon/购物车.png') },
+        remove: { type: 'img', value: require('@/assets/icon/删除.png') }
       }
     }
   },

@@ -2,29 +2,29 @@
   <div class="commodits">
     <div class="commodity-info flex-col-box">
       <div class="commodits">
-        <div
-          class="commodity-box"
-          v-for="item in commoditys"
-          :key="item.id"
-          @click="goDetail(item)"
-        >
-          <div class="pic"><img :src="item.sysFile?.filePath" alt="" /></div>
-          <div class="info info1">
-            <div class="name ellip">{{ item.productName }}</div>
-            <span @click.stop="collect(item)">
-              <Icon
-                class="icon"
-                :type="item.isComment == 1 ? 'collYes' : 'collNo'"
-                width="30px"
-                height="30px"
-              ></Icon>
-            </span>
-          </div>
-          <div class="info info2">
-            <div class="price">
-              {{ item.promotionPrice }} <span class="orPrice">{{ item.originalPrice }}</span>
+        <div class="commodity-box" v-for="item in commoditys" :key="item.id">
+          <div class="commodity-info" @click="goDetail(item)">
+            <div class="pic"><img :src="item.sysFile?.filePath" alt="" /></div>
+            <div class="info info1">
+              <div class="name ellip">{{ item.productName }}</div>
+              <span @click.stop="collect(item)">
+                <Icon
+                  class="icon"
+                  :type="item.isComment == 1 ? 'collYes' : 'collNo'"
+                  width="30px"
+                  height="30px"
+                ></Icon>
+              </span>
             </div>
-            <div class="pps ellip">{{ item.brandingBusiness }}</div>
+            <div class="info info2">
+              <div class="price">
+                {{ item.promotionPrice }} <span class="orPrice">{{ item.originalPrice }}</span>
+              </div>
+              <div class="pps ellip">{{ item.brandingBusiness }}</div>
+            </div>
+          </div>
+          <div class="icon-del" @click.stop="remove(item)">
+            <Icon type="remove" width="30px" height="30px"></Icon>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@ export default {
     }
   },
   methods: {
-    delete(row) {
+    remove(row) {
       this.$confirm(`确认删除此商品？`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -115,16 +115,18 @@ export default {
   background-color: #fff;
 }
 .commodity-box {
+  position: relative;
   cursor: pointer;
   width: 200px;
   height: 200px;
   margin: 30px;
   background-color: #fff;
   border-radius: 5px;
-  overflow: hidden;
   .pic {
     width: 100%;
     height: 130px;
+    border-radius: 5px;
+    overflow: hidden;
     img {
       width: 100%;
       height: 100%;
@@ -154,6 +156,13 @@ export default {
       width: 100px;
       text-align: right;
     }
+  }
+  .icon-del {
+    cursor: pointer;
+    position: absolute;
+    bottom: -40px;
+    left: 85px;
+    text-align: center;
   }
 }
 .commodity-box:hover {
