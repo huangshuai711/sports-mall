@@ -28,6 +28,7 @@
         <div class="title">商品推荐</div>
         <div class="item-box">
           <div class="item" v-for="item in tjcommoditys" :key="item.id" @click="comJump(item)">
+            <div class="spzt1"> <img :src="item.sysFile.filePath" alt=""  class="spzt2"/></div>
             <div class="name">{{ item.productName }}</div>
             <div class="price">￥{{ item.originalPrice }}</div>
           </div>
@@ -232,22 +233,33 @@ export default {
       box-shadow: 0 3px 12px rgb(98 107 181 / 25%);
     }
     .item-box {
-      background-color: #fff;
-      flex: 1;
-      overflow: hidden;
-      padding: 20px;
-      padding-bottom: 9999px;
-      .item {
-        cursor: pointer;
-        height: 80px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        .price {
-          color: rgb(237, 63, 20);
+        width: 250px;
+        background-color: #fff;
+        flex: 1;
+        overflow: hidden;
+        padding: 20px;
+        padding-bottom: 9999px;
+        .item {
+          cursor: pointer;
+          height: 160px;
+          display: flex;
+          margin-left: 30px;
+          flex-direction: column;
+          justify-content: center;
+          .price {
+            color: rgb(237, 63, 20);
+          }
+          .spzt2{
+            display: flex;
+            flex-direction: column;
+            width: 150px;
+            height: 100px;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+          }
         }
       }
-    }
   }
   .sp {
     margin-left: 300px;
