@@ -1,7 +1,6 @@
 <template>
   <div class="commodity-info flex-col-box">
     <Table :tableRow="tableRow" :tableData="tableData" :loading="loading" class="flex-fill"></Table>
-    <Pagination ref="page" :total="total" class="flex-bot" @refresh="getData"></Pagination>
   </div>
 </template>
 
@@ -21,7 +20,6 @@ export default {
         { key: 'updateTime', label: '收藏时间' }
       ],
       tableData: [],
-      total: 0,
       queryParam: {},
       loading: false
     }
@@ -33,10 +31,8 @@ export default {
     async getData() {
       try {
         this.loading = true
-        const paging = this.$refs.page.getPage()
-        const res = await getCollectCommoditys(this.queryParam, paging)
+        const res = await getCollectCommoditys(this.queryParam)
         this.tableData = res.data
-        this.total = res.data.total
         this.loading = false
       } catch (error) {}
     }
