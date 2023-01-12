@@ -36,7 +36,7 @@ export default {
         {
           type: 'input',
           name: '商品名称',
-          key: 'orderNum',
+          key: 'productName',
           value: ''
         }
       ],
