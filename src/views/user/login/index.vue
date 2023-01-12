@@ -68,7 +68,7 @@ export default {
   },
   computed: {
     loginType() {
-      return this.$route?.name == 'adminLogin' ? 1 : 2
+      return this.$route?.name == 'adminLogin' ? 1 : 0
     }
   },
   mounted() {
