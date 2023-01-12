@@ -32,7 +32,7 @@ export default {
     return {
       childShow: this.fatherShow,
       formArr: [
-        { type: 'rete', label: '星级', prop: 'commentStart' },
+        { type: 'rete', label: '星级', prop: 'commentStar' },
         { type: 'textarea', label: '内容', prop: 'commentContent' }
       ],
       data: null
@@ -63,7 +63,7 @@ export default {
           const params = {}
           params.commentDto = this.$refs.formlists.getData()
           params.commentDto.username = this.$store.getters?.getUserInfo?.username
-          const res = await commodityEvaluate(this.data?.id, params)
+          const res = await commodityEvaluate(this.data?.id, params.commentDto)
           if (res.code == 200) {
             this.$message.success('评价成功')
             this.close()
