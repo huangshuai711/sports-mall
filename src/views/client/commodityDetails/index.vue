@@ -25,7 +25,7 @@
         <div class="title">商品推荐</div>
         <div class="item-box">
           <div class="item" v-for="item in tjcommoditys" :key="item.id" @click="comJump(item)">
-            <div class="spzt1"> <img :src="item.sysFile.filePath" alt=""  class="spzt2"/></div>
+            <div class="spzt1"><img :src="item.sysFile.filePath" alt="" class="spzt2" /></div>
             <div class="name">{{ item.productName }}</div>
             <div class="price">￥{{ item.originalPrice }}</div>
           </div>
@@ -110,7 +110,7 @@ export default {
       console.log(tab.name)
     },
     back() {
-      this.$router.go(this.$route.query.id ? -1 : -2)
+      this.$router.go(-1)
     },
     comJump(item) {
       this.$router.push({ path: '/client/commodityDetails', query: { id: item.id } })
@@ -241,7 +241,7 @@ export default {
           .price {
             color: rgb(237, 63, 20);
           }
-          .spzt2{
+          .spzt2 {
             display: flex;
             flex-direction: column;
             width: 150px;
