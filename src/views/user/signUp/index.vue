@@ -44,7 +44,11 @@ export default {
         const valid = await this.$refs.formlists.checkFrom()
         if (valid) {
           const params = this.$refs.formlists.getData()
-          params.userType = this.loginType ? 1 : 2
+          if(0 == this.loginType){
+            params.userType = 2;
+          }else{
+            params.userType = 1;
+          }
           const res = await signUp(params)
           if (res.data.code == 200) {
             this.$message.success('注册成功')
