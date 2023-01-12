@@ -151,6 +151,8 @@ export default {
   height: 100%;
   .flex-fill {
     margin: 30px 0;
+    flex: 1;
+    overflow: auto;
   }
   .flex-bot {
     margin-bottom: 30px;
