@@ -60,10 +60,11 @@ export function getOrderArr(parameter, paging) {
 }
 
 // 评价
-export function commodityEvaluate(id) {
+export function commodityEvaluate(id, parameter) {
   return request({
     url: `/api/userHomes/comment/${id}`,
-    method: 'put'
+    method: 'POST',
+    data: parameter
   })
 }
 

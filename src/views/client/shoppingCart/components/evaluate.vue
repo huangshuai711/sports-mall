@@ -63,8 +63,7 @@ export default {
           const params = {}
           params.commentDto = this.$refs.formlists.getData()
           params.commentDto.username = this.$store.getters?.getUserInfo?.username
-          params.id = this.data.id
-          const res = await commodityEvaluate(params)
+          const res = await commodityEvaluate(this.data?.id, params)
           if (res.code == 200) {
             this.$message.success('评价成功')
             this.close()

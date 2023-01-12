@@ -123,6 +123,7 @@ export default {
           })
           .catch(() => {})
       } else if (row.state == 3) {
+        this.$refs.evaluate.data = row
         this.evaluateShow = true
       } else if (row.state == 6) {
         paysPay(row.orderNum).then(res => {})
