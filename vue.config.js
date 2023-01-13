@@ -16,6 +16,7 @@ module.exports = defineConfig({
   },
   devServer: {
     port: 8080,
+    host: '0.0.0.0',
     https: false,
     hot: 'only',
     /* 使用代理 */
@@ -31,5 +32,6 @@ module.exports = defineConfig({
         }
       }
     }
-  }
+  },
+  publicPath: process.env.NODE_ENV === 'production' ? '/wareAdmin' : '/'
 })
