@@ -24,10 +24,10 @@
 import HeadNav from './components/headNav'
 import SideMenu from './components/sideMenu'
 import Tab from './components/tab'
-import Chat from '@/components/chat'
+// import Chat from '@/components/chat'
 export default {
   name: 'home',
-  components: { SideMenu, Tab, HeadNav, Chat },
+  components: { SideMenu, Tab, HeadNav },
   data() {
     return {}
   },
